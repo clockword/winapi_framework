@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{6ee20966-1c62-4f24-a298-f9e1970e9378}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{73894b57-bd69-4135-8229-1604875dd898}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Configuration">
+      <UniqueIdentifier>{be29135f-9b73-4c75-a164-6fc2dc4e2686}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{9d6c2c1c-f9ec-4c49-9b4b-e16d43ce8bea}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Button.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="CollObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleQueue.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Button.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CollObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="InputManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Lambda.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="packet.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleQueue.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GdiPlusImage.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
