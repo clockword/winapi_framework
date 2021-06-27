@@ -182,8 +182,7 @@ void Game::Init()
 	m_fixedFrame = 15;
 
 	AddLevel("lvl_title");
-	AddLevel("lvl_login");
-	AddLevel("lvl_game");
+	AddLevel("lvl_dijkstra");
 
 	ChangeLevel("lvl_title");
 }

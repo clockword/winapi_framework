@@ -28,6 +28,7 @@ private:
 	int m_yCenter;
 	float m_sizeX;
 	float m_sizeY;
+	float m_rotation;
 	bool m_active;
 
 	ColorMatrix m_imageColor;
@@ -64,6 +65,9 @@ public:
 	Point GetPosition() { return Point(m_x, m_y); }
 	void SetPosition(int x, int y);
 	void SetPosition(Point position);
+	void SetRotation(float rotation) { m_rotation = rotation; }
+	void Rotate(float rotation) { m_rotation += rotation; }
+	float GetRotation() { return m_rotation; }
 	void SetSize(float x, float y);
 	void SetScale(SizeF scale) { m_imgScale = scale; }
 	SizeF GetScale() { return m_imgScale; }

@@ -25,31 +25,8 @@ private:
 private:
 	enum class ButtonWork
 	{
-		LVL_LOGIN,
-		EXIT_GAME,
-		LVL_TITLE,
-		LVL_GAME,
-		HIT_BOSS,
+		DIJKSTRA,
 	};
-
-	typedef struct _gameClicker
-	{
-		std::map<int, GameObject*> characters;
-		std::map<int, Text*> nicknames;
-		std::map<int, Text*> infos;
-		bool isFirst;
-		const float bossMaxHealth = 100000.0f;
-		float bossCurrentHealth;
-		const float damage = 100.0f;
-		float givenDamage;
-		const DWORD executeTime = 100;
-		DWORD executeTimeDelay;
-		bool bossDefeated;
-		const DWORD gameOverTime = 5000;
-		DWORD gameOverTimeCount;
-		float damageDealt;
-
-	}GAMECLICKER;
 
 	std::shared_ptr<void> m_variables;
 

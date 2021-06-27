@@ -17,6 +17,9 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{9d6c2c1c-f9ec-4c49-9b4b-e16d43ce8bea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{62933afe-e2c7-4c29-80ac-6456b17e9e30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp">
@@ -61,6 +64,15 @@
     </ClCompile>
     <ClCompile Include="CircleQueue.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Path.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphNode.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="DijkstraGraph.cpp">
+      <Filter>AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +124,18 @@
     </ClInclude>
     <ClInclude Include="CircleQueue.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Path.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphNode.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="AISettings.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="DijkstraGraph.h">
+      <Filter>AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

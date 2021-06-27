@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "Level.h"
 
 GameObject::GameObject()
 {
@@ -18,6 +19,7 @@ GameObject::GameObject()
 	m_yCenter = 0;
 	m_sizeX = 1.0f;
 	m_sizeY = 1.0f;
+	m_rotation = 0.0f;
 	m_active = true;
 	m_imageColor = { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 					 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
@@ -184,6 +186,14 @@ void GameObject::Draw(Graphics * g)
 	ImageAttributes attributes;
 	attributes.SetColorMatrix(&m_imageColor);
 
+	Level* level = static_cast<Level*>(m_vpLevel);
+	
+	g->TranslateTransform((float)m_x, (float)m_y);
+
+	g->RotateTransform(m_rotation);
+
+	g->TranslateTransform(-(float)m_x, -(float)m_y);
+
 	g->DrawImage(m_image, viewRect,
 		sourceX,
 		sourceY,
@@ -191,6 +201,12 @@ void GameObject::Draw(Graphics * g)
 		sourceHeight,
 		Gdiplus::UnitPixel,
 		&attributes);
+
+	g->TranslateTransform((float)m_x, (float)m_y);
+
+	g->RotateTransform(-m_rotation);
+
+	g->TranslateTransform(-(float)m_x, -(float)m_y);
 }
 
 void GameObject::SetCenter(int x, int y)

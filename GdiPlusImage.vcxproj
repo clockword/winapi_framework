@@ -101,11 +101,14 @@
     <ClCompile Include="CircleQueue.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollObject.cpp" />
+    <ClCompile Include="DijkstraGraph.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GraphNode.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Path.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="TextBox.cpp" />
@@ -114,16 +117,20 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AISettings.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CircleQueue.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollObject.h" />
+    <ClInclude Include="DijkstraGraph.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GraphNode.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Lambda.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="packet.h" />
+    <ClInclude Include="Path.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Text.h" />

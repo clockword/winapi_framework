@@ -56,6 +56,7 @@ public:
 
 	Level* GetCurrentLevel() { return m_currentLevel; }
 	void ChangeLevel(std::string name);
+	HWND GetWindow() { return m_hwnd; }
 
 	bool Run()const { return m_run; }
 	void RunOff() { m_run = false; }

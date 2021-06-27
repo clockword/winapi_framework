@@ -21,7 +21,7 @@ private:
 private:
 	World() {}
 
-	World(World&);
+	World(const World&);
 	World& operator=(World&);
 
 private:

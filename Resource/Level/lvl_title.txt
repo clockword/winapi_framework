@@ -1,9 +1,2 @@
-0 default bg_title1 512 384
-1 default bg_title2 512 384
-2 default bg_title3 512 384
-3 default bg_title4 512 384
-4 default bg_title5 512 576
-5 default tx_text 512 200
-6 default bt_button 512 400
-7 default bt_button 512 550
+1 default bt_button 512 384
 0 0 End 0 0 0

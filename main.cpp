@@ -74,7 +74,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     wndclass.hCursor = NULL;
     wndclass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
     wndclass.lpszMenuName = NULL;
-    wndclass.lpszClassName = "Clicker";
+    wndclass.lpszClassName = "WinApi";
 	
 	if(RegisterClass(&wndclass) == 0)
 	{
@@ -87,7 +87,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		WS_POPUP | WS_THICKFRAME | WS_SYSMENU | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX,
 		FALSE);
 
-	HWND hwnd = CreateWindow("Clicker", "Clicker Multiplayer",
+	HWND hwnd = CreateWindow("WinApi", "WinApiExamples",
 		WS_POPUP | WS_THICKFRAME | WS_SYSMENU | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX,
 		100, 100, rc.right-rc.left, rc.bottom-rc.top, NULL, NULL, hInstance, NULL);
 
@@ -237,12 +237,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		}
 	}break;
 	case WM_DESTROY:
-		LOGIN logOut;
-		logOut.pktID = PKT_LOGOUT;
-		strcpy(logOut.strID, g_game.GetStringID().c_str());
-		logOut.size = sizeof(logOut);
+		//LOGIN logOut;
+		//logOut.pktID = PKT_LOGOUT;
+		//strcpy(logOut.strID, g_game.GetStringID().c_str());
+		//logOut.size = sizeof(logOut);
 
-		g_game.Send(&logOut);
+		//g_game.Send(&logOut);
 
 		PostQuitMessage(0);
 		break;
