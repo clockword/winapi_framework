@@ -4,14 +4,15 @@
 
 unsigned int GraphNode::m_totalNode = 0;
 
-void GraphNode::InsertEdge(EDGE edge)
+void GraphNode::InsertEdge(GraphNode* toNode, float cost)
 {
-	m_edges.insert(edge);
+	m_edges.insert(std::make_unique<EDGE>(this, toNode, cost));
 }
 
-void GraphNode::EraseEdge(EDGE edge)
+void GraphNode::InsertEdge(GraphNode* toNode)
 {
-	m_edges.erase(edge);
+	float cost = sqrtf(powf(m_posX - toNode->m_posX, 2) + powf(m_posY - toNode->m_posY, 2));
+	m_edges.insert(std::make_unique<EDGE>(this, toNode, cost));
 }
 
 bool GraphNode::MoveNextLowCostEdge()
@@ -29,11 +30,27 @@ bool GraphNode::HasEdge()
 	return m_edges.begin() != m_edges.end();
 }
 
-void GraphNode::AddCost(float cost)
+void GraphNode::CompareAndInsert(EDGE* edge)
 {
-	if (m_totalCost == std::numeric_limits<float>::infinity())
-		m_totalCost = 0.0f;
-	m_totalCost += cost;
+	if (m_shortestPath.empty())
+	{
+		m_shortestPath.push_back(edge->fromNode);
+		m_shortestPath.push_back(edge->toNode);
+		m_totalCost = edge->cost;
+	}
+	else
+	{
+		GraphNode* previousNode = m_shortestPath.back();
+		float cost = previousNode->m_totalCost + edge->cost;
+		if (cost < m_totalCost)
+		{
+			m_shortestPath.clear();
+			m_shortestPath.insert(m_shortestPath.begin(),
+				previousNode->m_shortestPath.begin(), previousNode->m_shortestPath.end());
+			m_shortestPath.push_back(edge->toNode);
+			m_totalCost = cost;
+		}
+	}
 }
 
 void GraphNode::ResetCost()

@@ -108,7 +108,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Path.cpp" />
+    <ClCompile Include="DijkstraPath.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="TextBox.cpp" />
@@ -130,7 +130,7 @@
     <ClInclude Include="Lambda.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="packet.h" />
-    <ClInclude Include="Path.h" />
+    <ClInclude Include="DijkstraPath.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Text.h" />

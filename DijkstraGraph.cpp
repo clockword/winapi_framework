@@ -3,39 +3,58 @@
 #include "DijkstraGraph.h"
 #include "GraphNode.h"
 
-void DijkstraGraph::Calculate(GraphNode* from, GraphNode* to, std::list<GraphNode*>& path)
+unsigned int DijkstraGraph::InsertNode(float x, float y)
+{
+	auto node = std::make_shared<GraphNode>(x, y);
+	unsigned int id = node->GetId();
+	m_nodes.insert({ id, node });
+	return id;
+}
+
+std::list<GraphNode*>& DijkstraGraph::Calculate(GraphNode* from, GraphNode* to)
 {
 	m_goalID = to->GetId();
 
-	m_search.insert(m_nodes.begin(), m_nodes.end());
+	for (auto node : m_nodes)
+	{
+		node.second->ResetCost();
+	}
+	from->ZeroCost();
+	m_search.clear();
+	std::copy(m_nodes.begin(), m_nodes.end(), m_search.begin());
 	Search(from->GetId());
 
-
+	return to->GetShortestPath();
 }
 
-void DijkstraGraph::Calculate(unsigned int from, unsigned int to, std::list<GraphNode*>& path)
+std::list<GraphNode*>& DijkstraGraph::Calculate(unsigned int from, unsigned int to)
 {
-	Calculate(m_nodes[from], m_nodes[to], path);
+	return Calculate(m_nodes[from].get(), m_nodes[to].get());
+}
+
+GraphNode* DijkstraGraph::GetNode(unsigned int id)
+{
+	return m_nodes[id].get();
 }
 
 void DijkstraGraph::Search(unsigned int id)
 {
-	// wrong
-	if (m_nodes[id]->HasEdge())
+	const auto node = m_nodes[id];
+	if (node->HasEdge())
 	{
-		m_nodes[id]->MoveToLeastCostEdge();
+		node->MoveToLeastCostEdge();
 		do
 		{
-			EDGE edge = m_nodes[id]->GetCurrentEdge();
+			EDGE* edge = node->GetCurrentEdge();
 
-			edge.toNode->AddCost(edge.cost);
+			node->CompareAndInsert(edge);
 
-		} while (m_nodes[id]->MoveNextLowCostEdge());
+		} while (node->MoveNextLowCostEdge());
 	}
 	
 	m_search.erase(id);
 
-	if (!m_search.empty())
+	if (!m_search.empty() && id != m_goalID)
 	{
 		bool search = false;
 		unsigned int nextSearch;
