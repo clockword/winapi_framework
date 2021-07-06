@@ -21,7 +21,8 @@ std::list<GraphNode*>& DijkstraGraph::Calculate(GraphNode* from, GraphNode* to)
 	}
 	from->ZeroCost();
 	m_search.clear();
-	std::copy(m_nodes.begin(), m_nodes.end(), m_search.begin());
+	//std::copy(m_nodes.begin(), m_nodes.end(), m_search.begin());
+
 	Search(from->GetId());
 
 	return to->GetShortestPath();
@@ -40,17 +41,8 @@ GraphNode* DijkstraGraph::GetNode(unsigned int id)
 void DijkstraGraph::Search(unsigned int id)
 {
 	const auto node = m_nodes[id];
-	if (node->HasEdge())
-	{
-		node->MoveToLeastCostEdge();
-		do
-		{
-			EDGE* edge = node->GetCurrentEdge();
 
-			node->CompareAndInsert(edge);
-
-		} while (node->MoveNextLowCostEdge());
-	}
+	node->CalculateEdges();
 	
 	m_search.erase(id);
 
@@ -70,7 +62,7 @@ void DijkstraGraph::Search(unsigned int id)
 				search = true;
 			}
 		}
-
+		
 		if (search) Search(nextSearch);
 	}
 }

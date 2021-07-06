@@ -17,10 +17,12 @@ public:
 	~GraphNode() {}
 
 private:
+	typedef std::set<std::unique_ptr<EDGE>> EDGESET;
+
+private:
 	static unsigned int m_totalNode;
 	unsigned int m_id;
-	std::set<std::unique_ptr<EDGE>> m_edges;
-	std::set<std::unique_ptr<EDGE>>::iterator m_currentEdge;
+	EDGESET m_edges;
 
 	float m_posX;
 	float m_posY;
@@ -32,19 +34,18 @@ public:
 	unsigned int GetId()const { return m_id; }
 	void InsertEdge(GraphNode* toNode, float cost);
 	void InsertEdge(GraphNode* toNode);
-	void CompareAndInsert(EDGE* edge);
-	bool HasEdge();
+	EDGESET* GetEdges() { return &m_edges; }
 	void Clear();
-	bool MoveNextLowCostEdge();
-	void MoveToLeastCostEdge();
-	
-	EDGE* GetCurrentEdge()const { return m_currentEdge->get(); }
+	void CalculateEdges();
+
 	void ResetCost();
 	void ZeroCost() { m_totalCost = 0.0f; }
 	float GetCost()const { return m_totalCost; }
 	
-	//void SetPosition(float x, float y) { m_posX = x; m_posY = y; }
+	/*left x, right y*/
 	std::pair<float, float> GetPosition()const { return { m_posX, m_posY }; }
+	float GetPosX()const { return m_posX; }
+	float GetPosY()const { return m_posY; }
 
 	std::list<GraphNode*>& GetShortestPath() { return m_shortestPath; }
 

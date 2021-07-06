@@ -5,6 +5,9 @@
 #include "ResourceManager.h"
 #include "InputManager.h"
 #include "CollObject.h"
+#include "DijkstraPath.h"
+
+#include "GraphNode.h"
 
 #include <iostream>
 
@@ -46,6 +49,15 @@ void Level::Init()
 	}
 	else if (m_name == "lvl_dijkstra")
 	{
+		auto title_button = static_cast<Button*>(m_obj[1]);
+		auto dijkstra_path = static_cast<DijkstraPath*>(m_obj[2]);
+
+		std::string font = "Comic Sans MS";
+
+		title_button->SetFont(font);
+		title_button->SetText("Back");
+		title_button->SetSize(1.0f, 1.0f);
+		title_button->RegisterButtonFunc(Level::ButtonProcess, this, static_cast<int>(ButtonWork::TITLE));
 
 	}
 
@@ -375,6 +387,10 @@ void Level::Load()
 		{
 			m_obj[key] = new Text();
 		}
+		else if (type == "dp")
+		{
+			m_obj[key] = new DijkstraPath();
+		}
 
 		m_obj[key]->SetFile(img);
 		m_obj[key]->SetImage(ResourceManager::GetInstance()->LoadImage_(img));
@@ -426,6 +442,11 @@ void Level::ButtonProcess(void* ctx, int index)
 
 	switch (static_cast<ButtonWork>(index))
 	{
+	case ButtonWork::TITLE:
+	{
+		game->ChangeLevel("lvl_title");
+		InputManager::GetInstance()->ShockOff();
+	}break;
 	case ButtonWork::DIJKSTRA:
 	{
 		game->ChangeLevel("lvl_dijkstra");

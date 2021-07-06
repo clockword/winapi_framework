@@ -25,6 +25,7 @@ private:
 private:
 	enum class ButtonWork
 	{
+		TITLE,
 		DIJKSTRA,
 	};
 

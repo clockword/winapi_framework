@@ -10,17 +10,11 @@ public:
 
 private:
 	DijkstraGraph m_dijkstraGraph;
-	PointF* m_points;
-	int m_pointCount;
-
-protected:
-	virtual void Draw(Graphics* g);
 
 public:
-	virtual void Update(Graphics* g, DWORD tick);
+	virtual void Init()override;
+	virtual void Draw(Graphics* g)override;
 
 	DijkstraGraph* GetGraph() { return &m_dijkstraGraph; }
-
-	void SetPathToPoint();
 };
 
