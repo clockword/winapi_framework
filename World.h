@@ -10,7 +10,7 @@ using namespace Gdiplus;
 
 #include "CollObject.h"
 
-class World
+class World final
 {
 private:
 	typedef std::vector<CollObject*> CollObjectArr;

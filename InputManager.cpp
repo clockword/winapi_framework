@@ -42,7 +42,8 @@ void InputManager::SetMouseDownPos(int x, int y)
     Buttons::iterator bIt = buttons.begin();
     for (;bIt != buttons.end(); bIt++)
     {
-        (*bIt)->OnMouseButtonDown(x, y);
+        if((*bIt)->GetActive())
+            (*bIt)->OnMouseButtonDown(x, y);
         if (m_shockOff)
         {
             m_shockOff = false;
@@ -52,7 +53,8 @@ void InputManager::SetMouseDownPos(int x, int y)
     TextBoxes::iterator tIt = textboxes.begin();
     for (;tIt != textboxes.end(); tIt++)
     {
-        (*tIt)->OnMouseButtonDown(x, y);
+        if((*tIt)->GetActive())
+            (*tIt)->OnMouseButtonDown(x, y);
         if (m_shockOff)
         {
             m_shockOff = false;

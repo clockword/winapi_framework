@@ -12,6 +12,7 @@ private:
 	DijkstraGraph m_dijkstraGraph;
 
 public:
+	virtual void LoadExtra()override;
 	virtual void Init()override;
 	virtual void Draw(Graphics* g)override;
 

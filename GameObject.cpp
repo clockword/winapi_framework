@@ -118,9 +118,6 @@ void GameObject::SetPosition(Point position)
 
 void GameObject::Update(Graphics* g, DWORD tick)
 {
-	if (!m_active)
-		return;
-
 	UpdateAnim(tick);
 	Draw(g);
 }

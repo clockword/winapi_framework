@@ -17,7 +17,17 @@ void GraphNode::InsertEdge(GraphNode* toNode, float cost)
 void GraphNode::InsertEdge(GraphNode* toNode)
 {
 	float cost = sqrtf(powf(m_posX - toNode->m_posX, 2) + powf(m_posY - toNode->m_posY, 2));
-	m_edges.insert(std::make_unique<EDGE>(this, toNode, cost));
+	EDGESET::iterator it = m_edges.begin();
+	bool insertable = true;
+	for (; it != m_edges.end(); it++)
+	{
+		if ((*it)->toNode == toNode)
+		{
+			insertable = false;
+			break;
+		}
+	}
+	if(insertable) m_edges.insert(std::make_unique<EDGE>(this, toNode, cost));
 }
 
 void GraphNode::ResetCost()

@@ -8,9 +8,9 @@ class GraphNode;
 class DijkstraGraph
 {
 public:
-	DijkstraGraph() : m_goalID(0) {}
-	DijkstraGraph(const DijkstraGraph& other) {}
-	~DijkstraGraph() {}
+	DijkstraGraph();
+	DijkstraGraph(const DijkstraGraph& other);
+	~DijkstraGraph();
 
 private:
 	typedef std::map<unsigned int, std::shared_ptr<GraphNode>> NODEMAP;

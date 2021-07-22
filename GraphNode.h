@@ -14,7 +14,7 @@ public:
 		m_posX(x), m_posY(y), m_totalCost(0.0f) {}
 	GraphNode(const GraphNode& other) : m_id(m_totalNode++),
 		m_posX(other.m_posX), m_posY(other.m_posY), m_totalCost(0.0f) {}
-	~GraphNode() {}
+	~GraphNode() { m_totalNode -= 1; }
 
 private:
 	typedef std::set<std::unique_ptr<EDGE>> EDGESET;
@@ -48,6 +48,5 @@ public:
 	float GetPosY()const { return m_posY; }
 
 	std::list<GraphNode*>& GetShortestPath() { return m_shortestPath; }
-
 };
 

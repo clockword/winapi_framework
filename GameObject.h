@@ -56,12 +56,13 @@ public:
 	GameObject();
 	virtual ~GameObject();
 
+	virtual void LoadExtra() {}
 	virtual void Init() {}
 
 	void SetTag(std::string tag) { m_tag = tag; }
 	std::string GetTag() { return m_tag; }
-	void SetActive(bool active) { m_active = active; }
-	bool GetActive() { return m_active; }
+	inline void SetActive(bool active)noexcept { m_active = active; }
+	inline bool GetActive()const noexcept { return m_active; }
 	Point GetPosition() { return Point(m_x, m_y); }
 	void SetPosition(int x, int y);
 	void SetPosition(Point position);

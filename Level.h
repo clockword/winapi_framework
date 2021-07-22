@@ -23,10 +23,22 @@ private:
 	Game* m_game;
 
 private:
+	typedef struct
+	{
+		bool editMode;
+		bool isClickable;
+		int newObjNum;
+	}DIJKSTRAVAL, *LPDIJKSTRAVAL;
+
+private:
 	enum class ButtonWork
 	{
-		TITLE,
-		DIJKSTRA,
+		TITLE_SCENE,
+		DIJKSTRA_SCENE,
+		DIJKSTRA_EDIT,
+		DIJKSTRA_EXECUTE,
+		DIJKSTRA_ADDEDGE,
+		DIJKSTRA_REMOVEEDGE,
 	};
 
 	std::shared_ptr<void> m_variables;
@@ -49,6 +61,9 @@ public:
 	Game* GetThisGame() { return m_game; }
 	void* GetVariables();
 	GameObject* GetGameObject(int index) { return m_obj[index]; }
+
+	template<class T>
+	T AddGameObject(int index);
 
 	void (*LevelProcess)(Level* level, DWORD tick);
 

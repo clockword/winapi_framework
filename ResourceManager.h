@@ -9,7 +9,7 @@
 #pragma comment(lib, "gdiplus")
 using namespace Gdiplus;
 
-static class ResourceManager sealed
+static class ResourceManager final
 {
 private:
 	typedef std::map<std::string, Image*> ImageMap;

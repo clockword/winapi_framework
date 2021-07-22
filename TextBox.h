@@ -11,6 +11,7 @@ public:
 		Default,
 		IP_NUMBER,
 		SHORT_NUMBER,
+		ONLY_NUMBER,
 	};
 
 private:

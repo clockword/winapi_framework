@@ -6,7 +6,7 @@
 #include "Button.h"
 #include "TextBox.h"
 
-class InputManager sealed
+class InputManager final
 {
 private:
 	typedef int X;

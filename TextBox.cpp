@@ -90,20 +90,20 @@ void TextBox::OnKeyboardInput(char ch)
 
 		switch (m_textType)
 		{
-		case TextBox::TextType::Default:
+		case TextType::Default:
 			if (text.size() < m_textLimit)
 			{
 				text.push_back(ch);
 			}
 			break;
-		case TextBox::TextType::IP_NUMBER:
+		case TextType::IP_NUMBER:
 		{
 			if ((ch >= '0' && ch <= '9' || ch == '.') && text.size() < 15)
 			{
 				text.push_back(ch);
 			}
 		}break;
-		case TextBox::TextType::SHORT_NUMBER:
+		case TextType::SHORT_NUMBER:
 		{
 			if ((ch >= '0' && ch <= '9') && text.size() < 5)
 			{
@@ -112,6 +112,13 @@ void TextBox::OnKeyboardInput(char ch)
 			if (text.empty()) return;
 			if (std::stoi(text) > 65535) text = "65535";
 			else if (std::stoi(text) < 0) text = "0";
+		}break;
+		case TextType::ONLY_NUMBER:
+		{
+			if ((ch >= '0' && ch <= '9') && text.size() < m_textLimit)
+			{
+				text.push_back(ch);
+			}
 		}break;
 		}
 

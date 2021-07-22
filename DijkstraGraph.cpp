@@ -1,7 +1,20 @@
 #include <algorithm>
 #include <limits>
+#include <iterator>
 #include "DijkstraGraph.h"
 #include "GraphNode.h"
+
+DijkstraGraph::DijkstraGraph() : m_goalID(0)
+{
+}
+
+DijkstraGraph::DijkstraGraph(const DijkstraGraph& other)
+{
+}
+
+DijkstraGraph::~DijkstraGraph()
+{
+}
 
 unsigned int DijkstraGraph::InsertNode(float x, float y)
 {
@@ -21,8 +34,8 @@ std::list<GraphNode*>& DijkstraGraph::Calculate(GraphNode* from, GraphNode* to)
 	}
 	from->ZeroCost();
 	m_search.clear();
-	//std::copy(m_nodes.begin(), m_nodes.end(), m_search.begin());
-
+	std::copy(m_nodes.begin(), m_nodes.end(), std::inserter(m_search, m_search.begin()));
+	
 	Search(from->GetId());
 
 	return to->GetShortestPath();
@@ -35,6 +48,8 @@ std::list<GraphNode*>& DijkstraGraph::Calculate(unsigned int from, unsigned int 
 
 GraphNode* DijkstraGraph::GetNode(unsigned int id)
 {
+	if (m_nodes.find(id) == m_nodes.end())
+		return nullptr;
 	return m_nodes[id].get();
 }
 
