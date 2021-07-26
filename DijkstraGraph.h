@@ -31,6 +31,9 @@ public:
 	GraphNode* GetNode(unsigned int id);
 	NODEMAP* GetNodes() { return &m_nodes; }
 
+	bool DeleteEdge(unsigned int from, unsigned to);
+	bool DeleteNode(unsigned int id);
+
 private:
 	void Search(unsigned int id);
 };

@@ -1,10 +1,14 @@
 101 default bt_button 960 730
 102 default dp_text 512 384
 103 default bt_button 60 40
-104 default bt_button 180 40
-105 default tx_text 280 40
-106 default tb_textbox 360 40
-107 default tx_text 440 40
-108 default tb_textbox 510 40
-109 default bt_button 620 40
+104 default bt_button 160 40
+105 default tx_text 240 40
+106 default tb_textbox 320 40
+107 default tx_text 400 40
+108 default tb_textbox 470 40
+109 default bt_button 570 40
+110 default bt_button 670 40
+111 default tx_text 750 40
+112 default tb_textbox 830 40
+113 default bt_button 930 40
 0 0 End 0 0 0

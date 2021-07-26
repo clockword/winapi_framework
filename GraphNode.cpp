@@ -1,8 +1,5 @@
 #include <limits>
 #include <Windows.h>
-#include <gdiplus.h>
-#pragma comment(lib, "gdiplus")
-using namespace Gdiplus;
 
 #include "GraphNode.h"
 #include "AISettings.h"
@@ -30,6 +27,25 @@ void GraphNode::InsertEdge(GraphNode* toNode)
 	if(insertable) m_edges.insert(std::make_unique<EDGE>(this, toNode, cost));
 }
 
+bool GraphNode::DeleteEdge(GraphNode* toNode)
+{
+	EDGESET::iterator it = m_edges.begin();
+	for (; it != m_edges.end(); it++)
+	{
+		if ((*it)->toNode == toNode)
+		{
+			m_edges.erase(*it);
+			return true;
+		}
+	}
+	return false;
+}
+
+void GraphNode::DeleteAll()
+{
+	m_edges.clear();
+}
+
 void GraphNode::ResetCost()
 {
 	m_totalCost = std::numeric_limits<float>::infinity();
@@ -49,7 +65,7 @@ void GraphNode::CalculateEdges()
 		else
 		{
 			GraphNode* previousNode = m_shortestPath.back();
-			float cost = previousNode->m_totalCost + (*it)->cost;
+			const float cost = previousNode->m_totalCost + (*it)->cost;
 			if (cost < m_totalCost)
 			{
 				m_shortestPath.clear();

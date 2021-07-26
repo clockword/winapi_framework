@@ -14,6 +14,7 @@ DijkstraGraph::DijkstraGraph(const DijkstraGraph& other)
 
 DijkstraGraph::~DijkstraGraph()
 {
+	GraphNode::ZeroNode();
 }
 
 unsigned int DijkstraGraph::InsertNode(float x, float y)
@@ -28,7 +29,7 @@ std::list<GraphNode*>& DijkstraGraph::Calculate(GraphNode* from, GraphNode* to)
 {
 	m_goalID = to->GetId();
 
-	for (auto node : m_nodes)
+	for (auto &node : m_nodes)
 	{
 		node.second->ResetCost();
 	}
@@ -53,9 +54,38 @@ GraphNode* DijkstraGraph::GetNode(unsigned int id)
 	return m_nodes[id].get();
 }
 
+bool DijkstraGraph::DeleteEdge(unsigned int from, unsigned to)
+{
+	if (m_nodes.find(from) == m_nodes.end())
+		return false;
+	if (m_nodes.find(from) == m_nodes.end())
+		return false;
+
+	return m_nodes[from]->DeleteEdge(m_nodes[to].get());
+}
+
+bool DijkstraGraph::DeleteNode(unsigned int id)
+{
+	if (m_nodes.find(id) == m_nodes.end())
+		return false;
+
+	GraphNode* delNode = m_nodes[id].get();
+
+	delNode->DeleteAll();
+	for (auto &node : m_nodes)
+	{
+		if (node.second == m_nodes[id])
+			continue;
+		node.second->DeleteEdge(delNode);
+	}
+	m_nodes.erase(id);
+
+	return false;
+}
+
 void DijkstraGraph::Search(unsigned int id)
 {
-	const auto node = m_nodes[id];
+	const auto &node = m_nodes[id];
 
 	node->CalculateEdges();
 	
@@ -66,13 +96,13 @@ void DijkstraGraph::Search(unsigned int id)
 		bool search = false;
 		unsigned int nextSearch;
 		float cost = std::numeric_limits<float>::max();
-		for (auto pair : m_search)
+		for (auto &pair : m_search)
 		{
 			auto searchID = pair.first;
-			auto node = pair.second;
-			if (node->GetCost() < cost)
+			auto &searchNode = pair.second;
+			if (searchNode->GetCost() < cost)
 			{
-				cost = node->GetCost();
+				cost = searchNode->GetCost();
 				nextSearch = searchID;
 				search = true;
 			}

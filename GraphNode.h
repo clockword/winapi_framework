@@ -14,7 +14,7 @@ public:
 		m_posX(x), m_posY(y), m_totalCost(0.0f) {}
 	GraphNode(const GraphNode& other) : m_id(m_totalNode++),
 		m_posX(other.m_posX), m_posY(other.m_posY), m_totalCost(0.0f) {}
-	~GraphNode() { m_totalNode -= 1; }
+	~GraphNode() {}
 
 private:
 	typedef std::set<std::unique_ptr<EDGE>> EDGESET;
@@ -34,6 +34,8 @@ public:
 	unsigned int GetId()const { return m_id; }
 	void InsertEdge(GraphNode* toNode, float cost);
 	void InsertEdge(GraphNode* toNode);
+	bool DeleteEdge(GraphNode* toNode);
+	void DeleteAll();
 	EDGESET* GetEdges() { return &m_edges; }
 	void Clear();
 	void CalculateEdges();
@@ -48,5 +50,7 @@ public:
 	float GetPosY()const { return m_posY; }
 
 	std::list<GraphNode*>& GetShortestPath() { return m_shortestPath; }
+
+	static void ZeroNode() { m_totalNode = 0; }
 };
 

@@ -117,7 +117,7 @@ Vector2 Vector2::operator/(const Vector2& vec) const
 Vector2 Vector2::operator/(const float scalar) const
 {
 	Vector2 rVec;
-	float v = 1.0f / scalar;
+	const float v = 1.0f / scalar;
 
 	rVec.x = x * v;
 	rVec.y = y * v;
@@ -193,7 +193,7 @@ Vector2& Vector2::operator/=(const Vector2& vec)
 
 Vector2& Vector2::operator/=(const float scalar)
 {
-	float v = 1.0f / scalar;
+	const float v = 1.0f / scalar;
 
 	x *= v;
 	y *= v;
@@ -237,12 +237,12 @@ Vector2 Vector2::GetNormalized()
 
 void Vector2::Normalize()
 {
-	float magnitude = GetMagnitude();
+	const float magnitude = GetMagnitude();
 	if (magnitude == 0.0f)
 		return;
 
-	x /= GetMagnitude();
-	y /= GetMagnitude();
+	x /= magnitude;
+	y /= magnitude;
 }
 
 Vector2 Vector2::GetReverse()
@@ -266,9 +266,11 @@ Vector2 Vector2::Lerp(Vector2 a, Vector2 b, float t = 0.5f)
 
 float Vector2::Angle(Vector2 from, Vector2 to)
 {
-	if (from.GetNormalized() == to.GetNormalized())
+	Vector2 fromNormal = from.GetNormalized();
+	Vector2 toNormal = to.GetNormalized();
+	if (fromNormal == toNormal)
 		return 0.0f;
-	if (from.GetNormalized().GetReverse() == to.GetNormalized())
+	if (fromNormal.GetReverse() == toNormal)
 		return 180.0f;
 	if (Cross(from, to) < 0)
 		return -(1 - acosf(Dot(from, to) / from.GetMagnitude() / to.GetMagnitude()) / M_PI) * 180.0f;
@@ -278,14 +280,14 @@ float Vector2::Angle(Vector2 from, Vector2 to)
 
 Vector2 Vector2::Rotate(Vector2 vec, float rotation)
 {
-	float rot = rotation * M_PI / 180.0f;
+	const float rot = rotation * M_PI / 180.0f;
 
-	float x = vec.x * cos(rot) - vec.y * sin(rot);
-	float y = -vec.x * sin(rot) - vec.y * cos(rot);
-	if (fmod(rotation, 360.0f) == 0.0f || fmod(rotation, 180.0f) == 0.0f) x = 0.0f;
-	if (fmod(rotation, 360.0f) == 0.0f) y = -1.0f;
-	else if (fmod(rotation, 180.0f) == 0.0f) y = 1.0f;
-	else if (fmod(rotation, 90.0f) == 0.0f) y = 0.0f;
+	const float x = vec.x * cos(rot) - vec.y * sin(rot);
+	const float y = vec.x * sin(rot) + vec.y * cos(rot);
+	//if (fmod(rotation, 360.0f) == 0.0f || fmod(rotation, 180.0f) == 0.0f) x = 0.0f;
+	//if (fmod(rotation, 360.0f) == 0.0f) y = -1.0f;
+	//else if (fmod(rotation, 180.0f) == 0.0f) y = 1.0f;
+	//else if (fmod(rotation, 90.0f) == 0.0f) y = 0.0f;
 
 	return Vector2(x, y);
 }

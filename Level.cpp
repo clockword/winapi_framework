@@ -58,6 +58,10 @@ void Level::Init()
 		auto to_text = static_cast<Text*>(m_obj[107]);
 		auto to_textbox = static_cast<TextBox*>(m_obj[108]);
 		auto addEdge_button = static_cast<Button*>(m_obj[109]);
+		auto delEdge_button = static_cast<Button*>(m_obj[110]);
+		auto node_text = static_cast<Text*>(m_obj[111]);
+		auto node_textbox = static_cast<TextBox*>(m_obj[112]);
+		auto delNode_button = static_cast<Button*>(m_obj[113]);
 
 		std::string font = "Comic Sans MS";
 
@@ -98,7 +102,7 @@ void Level::Init()
 		from_textbox->SetSize(0.5f, 0.5f);
 
 		to_text->SetFont(font);
-		to_text->SetText("to :");
+		to_text->SetText("To :");
 		to_text->SetFontSize(16);
 
 		to_textbox->SetFont(font);
@@ -113,6 +117,29 @@ void Level::Init()
 		addEdge_button->SetFontSize(16);
 		addEdge_button->SetSize(0.5f, 0.5f);
 		addEdge_button->RegisterButtonFunc(Level::ButtonProcess, this, static_cast<int>(ButtonWork::DIJKSTRA_ADDEDGE));
+
+		delEdge_button->SetFont(font);
+		delEdge_button->SetText("Delete");
+		delEdge_button->SetFontSize(16);
+		delEdge_button->SetSize(0.5f, 0.5f);
+		delEdge_button->RegisterButtonFunc(Level::ButtonProcess, this, static_cast<int>(ButtonWork::DIJKSTRA_REMOVEEDGE));
+
+		node_text->SetFont(font);
+		node_text->SetText("Node :");
+		node_text->SetFontSize(16);
+
+		node_textbox->SetFont(font);
+		node_textbox->SetText("");
+		node_textbox->SetTextType(TextBox::TextType::ONLY_NUMBER);
+		node_textbox->SetTextLimit(2);
+		node_textbox->SetFontSize(16);
+		node_textbox->SetSize(0.5f, 0.5f);
+
+		delNode_button->SetFont(font);
+		delNode_button->SetText("Delete");
+		delNode_button->SetFontSize(16);
+		delNode_button->SetSize(0.5f, 0.5f);
+		delNode_button->RegisterButtonFunc(Level::ButtonProcess, this, static_cast<int>(ButtonWork::DIJKSTRA_REMOVENODE));
 
 		m_variables = value;
 
@@ -130,7 +157,7 @@ void Level::Init()
 					const int x = input->GetMouseDownPos().first;
 					const int y = input->GetMouseDownPos().second;
 
-					if (y > 100)
+					if (y > 100 && y < 700)
 					{
 						graph->InsertNode(x, y);
 					}
@@ -289,7 +316,7 @@ void Level::ButtonProcess(void* ctx, int index)
 		edit_button->SetColor(1.0f, 0.0f, 0.0f, 1.0f);
 		execute_button->SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-		for (int i = 105; i <= 109; i++)
+		for (int i = 105; i <= 113; i++)
 		{
 			level->m_obj[i]->SetActive(true);
 		}
@@ -306,7 +333,7 @@ void Level::ButtonProcess(void* ctx, int index)
 		edit_button->SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 		execute_button->SetColor(1.0f, 0.0f, 0.0f, 1.0f);
 
-		for (int i = 105; i <= 109; i++)
+		for (int i = 105; i <= 113; i++)
 		{
 			level->m_obj[i]->SetActive(false);
 		}
@@ -334,6 +361,40 @@ void Level::ButtonProcess(void* ctx, int index)
 		{
 			fromNode->InsertEdge(toNode);
 		}
+
+	}break;
+	case ButtonWork::DIJKSTRA_REMOVEEDGE:
+	{
+		auto dijkstra_path = static_cast<DijkstraPath*>(level->m_obj[102]);
+		DijkstraGraph* graph = dijkstra_path->GetGraph();
+		auto from_textbox = static_cast<TextBox*>(level->m_obj[106]);
+		auto to_textbox = static_cast<TextBox*>(level->m_obj[108]);
+
+		if (from_textbox->GetText() == "" || to_textbox->GetText() == "")
+			break;
+
+		unsigned int from = std::stoul(from_textbox->GetText());
+		unsigned int to = std::stoul(to_textbox->GetText());
+
+		GraphNode* fromNode = graph->GetNode(from);
+		GraphNode* toNode = graph->GetNode(to);
+
+		if (fromNode && toNode)
+		{
+			fromNode->DeleteEdge(toNode);
+		}
+	}break;
+	case ButtonWork::DIJKSTRA_REMOVENODE:
+	{
+		auto dijkstra_path = static_cast<DijkstraPath*>(level->m_obj[102]);
+		DijkstraGraph* graph = dijkstra_path->GetGraph();
+		auto node_textbox = static_cast<TextBox*>(level->m_obj[112]);
+
+		if (node_textbox->GetText() == "")
+			break;
+
+		unsigned int del = std::stoul(node_textbox->GetText());
+		graph->DeleteNode(del);
 
 	}break;
 	}
