@@ -12,17 +12,24 @@ private:
 	DijkstraGraph m_dijkstraGraph;
 	unsigned int m_beginID;
 	unsigned int m_endID;
+	bool m_beginSet;
+	bool m_endSet;
+
+	std::list<GraphNode*> m_shortest;
 
 public:
 	virtual void LoadExtra()override;
 	virtual void Init()override;
 	virtual void Draw(Graphics* g)override;
 
-	void SetBeginID(unsigned int id) { m_beginID = id; }
-	void SetEndID(unsigned int id) { m_endID = id; }
+	void SetBeginID(unsigned int id);
+	void SetEndID(unsigned int id);
 
-	unsigned int GetBeginID() { return m_beginID; }
-	unsigned int GetEndID() { return m_endID; }
+	unsigned int GetBeginID()const { return m_beginID; }
+	unsigned int GetEndID()const { return m_endID; }
+	void CheckIsReset(unsigned int id);
+
+	void Calculate();
 
 	DijkstraGraph* GetGraph() { return &m_dijkstraGraph; }
 };

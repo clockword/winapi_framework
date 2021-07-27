@@ -49,8 +49,13 @@ void Level::Init()
 	}
 	else if (m_name == "lvl_dijkstra")
 	{
+		for (int i = 114; i <= 118; i++)
+		{
+			m_obj[i]->SetActive(false);
+		}
+
 		auto title_button = static_cast<Button*>(m_obj[101]);
-		auto dijkstra_path = static_cast<DijkstraPath*>(m_obj[102]);
+		const auto dijkstra_path = static_cast<DijkstraPath*>(m_obj[102]);
 		auto edit_button = static_cast<Button*>(m_obj[103]);
 		auto execute_button = static_cast<Button*>(m_obj[104]);
 		auto from_text = static_cast<Text*>(m_obj[105]);
@@ -62,6 +67,11 @@ void Level::Init()
 		auto node_text = static_cast<Text*>(m_obj[111]);
 		auto node_textbox = static_cast<TextBox*>(m_obj[112]);
 		auto delNode_button = static_cast<Button*>(m_obj[113]);
+		auto piece_text = static_cast<Text*>(m_obj[114]);
+		auto piece_textbox = static_cast<TextBox*>(m_obj[115]);
+		auto begin_button = static_cast<Button*>(m_obj[116]);
+		auto end_button = static_cast<Button*>(m_obj[117]);
+		auto calculate_button = static_cast<Button*>(m_obj[118]);
 
 		std::string font = "Comic Sans MS";
 
@@ -140,6 +150,35 @@ void Level::Init()
 		delNode_button->SetFontSize(16);
 		delNode_button->SetSize(0.5f, 0.5f);
 		delNode_button->RegisterButtonFunc(Level::ButtonProcess, this, static_cast<int>(ButtonWork::DIJKSTRA_REMOVENODE));
+
+		piece_text->SetFont(font);
+		piece_text->SetText("Piece :");
+		piece_text->SetFontSize(16);
+
+		piece_textbox->SetFont(font);
+		piece_textbox->SetText("");
+		piece_textbox->SetTextType(TextBox::TextType::ONLY_NUMBER);
+		piece_textbox->SetTextLimit(2);
+		piece_textbox->SetFontSize(16);
+		piece_textbox->SetSize(0.5f, 0.5f);
+
+		begin_button->SetFont(font);
+		begin_button->SetText("Begin");
+		begin_button->SetFontSize(24);
+		begin_button->SetSize(0.5f, 0.5f);
+		begin_button->RegisterButtonFunc(Level::ButtonProcess, this, static_cast<int>(ButtonWork::DIJKSTRA_BEGIN));
+
+		end_button->SetFont(font);
+		end_button->SetText("End");
+		end_button->SetFontSize(24);
+		end_button->SetSize(0.5f, 0.5f);
+		end_button->RegisterButtonFunc(Level::ButtonProcess, this, static_cast<int>(ButtonWork::DIJKSTRA_END));
+
+		calculate_button->SetFont(font);
+		calculate_button->SetText("Calculate");
+		calculate_button->SetFontSize(16);
+		calculate_button->SetSize(0.5f, 0.5f);
+		calculate_button->RegisterButtonFunc(Level::ButtonProcess, this, static_cast<int>(ButtonWork::DIJKSTRA_CALCULATE));
 
 		m_variables = value;
 
@@ -320,6 +359,10 @@ void Level::ButtonProcess(void* ctx, int index)
 		{
 			level->m_obj[i]->SetActive(true);
 		}
+		for (int i = 114; i <= 118; i++)
+		{
+			level->m_obj[i]->SetActive(false);
+		}
 
 		value->editMode = true;
 
@@ -336,6 +379,10 @@ void Level::ButtonProcess(void* ctx, int index)
 		for (int i = 105; i <= 113; i++)
 		{
 			level->m_obj[i]->SetActive(false);
+		}
+		for (int i = 114; i <= 118; i++)
+		{
+			level->m_obj[i]->SetActive(true);
 		}
 
 		value->editMode = false;
@@ -362,6 +409,9 @@ void Level::ButtonProcess(void* ctx, int index)
 			fromNode->InsertEdge(toNode);
 		}
 
+		from_textbox->SetText("");
+		to_textbox->SetText("");
+
 	}break;
 	case ButtonWork::DIJKSTRA_REMOVEEDGE:
 	{
@@ -383,6 +433,10 @@ void Level::ButtonProcess(void* ctx, int index)
 		{
 			fromNode->DeleteEdge(toNode);
 		}
+
+		from_textbox->SetText("");
+		to_textbox->SetText("");
+
 	}break;
 	case ButtonWork::DIJKSTRA_REMOVENODE:
 	{
@@ -394,7 +448,45 @@ void Level::ButtonProcess(void* ctx, int index)
 			break;
 
 		unsigned int del = std::stoul(node_textbox->GetText());
+		dijkstra_path->CheckIsReset(del);
 		graph->DeleteNode(del);
+
+		node_textbox->SetText("");
+
+	}break;
+	case ButtonWork::DIJKSTRA_BEGIN:
+	{
+		auto dijkstra_path = static_cast<DijkstraPath*>(level->m_obj[102]);
+		auto piece_textbox = static_cast<TextBox*>(level->m_obj[115]);
+
+		if (piece_textbox->GetText() == "")
+			break;
+
+		unsigned int begin = std::stoul(piece_textbox->GetText());
+		dijkstra_path->SetBeginID(begin);
+
+		piece_textbox->SetText("");
+
+	}break;
+	case ButtonWork::DIJKSTRA_END:
+	{
+		auto dijkstra_path = static_cast<DijkstraPath*>(level->m_obj[102]);
+		auto piece_textbox = static_cast<TextBox*>(level->m_obj[115]);
+
+		if (piece_textbox->GetText() == "")
+			break;
+
+		unsigned int end = std::stoul(piece_textbox->GetText());
+		dijkstra_path->SetEndID(end);
+
+		piece_textbox->SetText("");
+
+	}break;
+	case ButtonWork::DIJKSTRA_CALCULATE:
+	{
+		auto dijkstra_path = static_cast<DijkstraPath*>(level->m_obj[102]);
+
+		dijkstra_path->Calculate();
 
 	}break;
 	}

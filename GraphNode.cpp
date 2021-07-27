@@ -49,6 +49,7 @@ void GraphNode::DeleteAll()
 void GraphNode::ResetCost()
 {
 	m_totalCost = std::numeric_limits<float>::infinity();
+	m_shortestPath.clear();
 }
 
 void GraphNode::CalculateEdges()
@@ -60,7 +61,8 @@ void GraphNode::CalculateEdges()
 		{
 			m_shortestPath.push_back((*it)->fromNode);
 			m_shortestPath.push_back((*it)->toNode);
-			m_totalCost = (*it)->cost;
+			m_totalCost = 0;
+			(*it)->toNode->m_totalCost = (*it)->cost;
 		}
 		else
 		{

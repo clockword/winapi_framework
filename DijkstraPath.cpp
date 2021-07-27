@@ -12,6 +12,8 @@ void DijkstraPath::LoadExtra()
 
 void DijkstraPath::Init()
 {
+	m_beginSet = false;
+	m_endSet = false;
 }
 
 void DijkstraPath::Draw(Graphics* g)
@@ -20,6 +22,12 @@ void DijkstraPath::Draw(Graphics* g)
 
 	Pen edgePen(Color(255, 0, 0));
 	Pen nodePen(Color(0, 0, 255));
+	Pen beginPen(Color(0, 255, 0));
+	beginPen.SetWidth(5);
+	Pen endPen(Color(255, 0, 0));
+	endPen.SetWidth(5);
+	Pen pathPen(Color(255, 0, 255));
+	pathPen.SetWidth(5);
 
 	std::set<std::unique_ptr<EDGE>>::iterator it;
 	std::set<std::unique_ptr<EDGE>>::iterator end;
@@ -61,6 +69,56 @@ void DijkstraPath::Draw(Graphics* g)
 		}
 
 		g->DrawEllipse(&nodePen, Rect(node->GetPosX() - 8, node->GetPosY() - 8, 16, 16));
+
+		GraphNode* lastNode = nullptr;
+		for (auto path : m_shortest)
+		{
+			if (lastNode == nullptr)
+			{
+				lastNode = path;
+				continue;
+			}
+			g->DrawLine(&pathPen, lastNode->GetPosX(), lastNode->GetPosY(), path->GetPosX(), path->GetPosY());
+			lastNode = path;
+		}
+
 		g->DrawString(text.c_str(), -1, &F, P, &SF, &B);
+
+		if (m_beginSet)
+		{
+			const GraphNode* piece = nodes->at(m_beginID).get();
+			g->DrawEllipse(&beginPen, Rect(piece->GetPosX() - 10, piece->GetPosY() - 10, 20, 20));
+		}
+		if (m_endSet)
+		{
+			const GraphNode* piece = nodes->at(m_endID).get();
+			g->DrawEllipse(&endPen, Rect(piece->GetPosX() - 10, piece->GetPosY() - 10, 20, 20));
+		}
+	}
+}
+
+void DijkstraPath::SetBeginID(unsigned int id)
+{
+	m_beginID = id;
+	m_beginSet = true;
+}
+
+void DijkstraPath::SetEndID(unsigned int id)
+{
+	m_endID = id;
+	m_endSet = true;
+}
+
+void DijkstraPath::CheckIsReset(unsigned int id)
+{
+	if (id == m_beginID) m_beginSet = false;
+	else if (id == m_endID) m_endSet = false;
+}
+
+void DijkstraPath::Calculate()
+{
+	if (m_beginSet && m_endSet)
+	{
+		m_shortest = m_dijkstraGraph.Calculate(m_beginID, m_endID);
 	}
 }

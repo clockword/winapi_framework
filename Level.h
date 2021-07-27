@@ -40,6 +40,9 @@ private:
 		DIJKSTRA_ADDEDGE,
 		DIJKSTRA_REMOVEEDGE,
 		DIJKSTRA_REMOVENODE,
+		DIJKSTRA_BEGIN,
+		DIJKSTRA_END,
+		DIJKSTRA_CALCULATE,
 	};
 
 	std::shared_ptr<void> m_variables;
