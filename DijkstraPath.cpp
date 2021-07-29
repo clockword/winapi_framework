@@ -1,4 +1,4 @@
-#include <fstream>
+#include <ctime>
 
 #include "DijkstraPath.h"
 #include "GraphNode.h"
@@ -115,10 +115,12 @@ void DijkstraPath::CheckIsReset(unsigned int id)
 	else if (id == m_endID) m_endSet = false;
 }
 
-void DijkstraPath::Calculate()
+DWORD DijkstraPath::Calculate()
 {
+	const DWORD tick = time(NULL);
 	if (m_beginSet && m_endSet)
 	{
 		m_shortest = m_dijkstraGraph.Calculate(m_beginID, m_endID);
 	}
+	return time(NULL) - tick;
 }

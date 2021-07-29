@@ -208,7 +208,11 @@ void Level::Init()
 			}
 		};
 	}
-	
+	else if (m_name == "lvl_astar")
+	{
+
+	}
+
 	World::GetInstance()->Init();
 }
 
@@ -486,7 +490,7 @@ void Level::ButtonProcess(void* ctx, int index)
 	{
 		auto dijkstra_path = static_cast<DijkstraPath*>(level->m_obj[102]);
 
-		dijkstra_path->Calculate();
+		const DWORD time = dijkstra_path->Calculate();
 
 	}break;
 	}

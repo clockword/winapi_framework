@@ -52,30 +52,33 @@ void GraphNode::ResetCost()
 	m_shortestPath.clear();
 }
 
+void GraphNode::ZeroCost()
+{
+	m_totalCost = 0.0f;
+	m_shortestPath.push_back(this);
+}
+
 void GraphNode::CalculateEdges()
 {
 	EDGESET::iterator it = m_edges.begin();
 	for (; it != m_edges.end(); it++)
 	{
-		if (m_shortestPath.empty())
+		GraphNode* next = (*it)->toNode;
+		const float cost = m_totalCost + (*it)->cost;
+		if (next->m_shortestPath.empty())
 		{
-			m_shortestPath.push_back((*it)->fromNode);
-			m_shortestPath.push_back((*it)->toNode);
-			m_totalCost = 0;
-			(*it)->toNode->m_totalCost = (*it)->cost;
+			next->m_shortestPath.insert(next->m_shortestPath.begin(),
+				m_shortestPath.begin(), m_shortestPath.end());
+			next->m_shortestPath.push_back(next);
+			next->m_totalCost = cost;
 		}
-		else
+		else if (cost < next->m_totalCost)
 		{
-			GraphNode* previousNode = m_shortestPath.back();
-			const float cost = previousNode->m_totalCost + (*it)->cost;
-			if (cost < m_totalCost)
-			{
-				m_shortestPath.clear();
-				m_shortestPath.insert(m_shortestPath.begin(),
-					previousNode->m_shortestPath.begin(), previousNode->m_shortestPath.end());
-				m_shortestPath.push_back((*it)->toNode);
-				m_totalCost = cost;
-			}
+			next->m_shortestPath.clear();
+			next->m_shortestPath.insert(next->m_shortestPath.begin(),
+				m_shortestPath.begin(), m_shortestPath.end());
+			next->m_shortestPath.push_back(next);
+			next->m_totalCost = cost;
 		}
 	}
 }

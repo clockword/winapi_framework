@@ -41,7 +41,7 @@ public:
 	void CalculateEdges();
 
 	void ResetCost();
-	void ZeroCost() { m_totalCost = 0.0f; }
+	void ZeroCost();
 	float GetCost()const { return m_totalCost; }
 	
 	/*left x, right y*/

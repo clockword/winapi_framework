@@ -29,7 +29,7 @@ public:
 	unsigned int GetEndID()const { return m_endID; }
 	void CheckIsReset(unsigned int id);
 
-	void Calculate();
+	DWORD Calculate();
 
 	DijkstraGraph* GetGraph() { return &m_dijkstraGraph; }
 };
