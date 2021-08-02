@@ -1,23 +1,22 @@
 #pragma once
 #include <set>
-#include <tuple>
 #include <list>
 #include <memory>
-#include "AISettings.h"
+#include "DijkstraEdge.h"
 
-class GraphNode
+class DijkstraNode
 {
 public:
-	GraphNode() : m_id(m_totalNode++), m_posX(0.0f), m_posY(0.0f), 
+	DijkstraNode() : m_id(m_totalNode++), m_posX(0.0f), m_posY(0.0f), 
 		m_totalCost(0.0f) {}
-	GraphNode(float x, float y) : m_id(m_totalNode++), 
+	DijkstraNode(float x, float y) : m_id(m_totalNode++), 
 		m_posX(x), m_posY(y), m_totalCost(0.0f) {}
-	GraphNode(const GraphNode& other) : m_id(m_totalNode++),
+	DijkstraNode(const DijkstraNode& other) : m_id(m_totalNode++),
 		m_posX(other.m_posX), m_posY(other.m_posY), m_totalCost(0.0f) {}
-	~GraphNode() {}
+	~DijkstraNode() {}
 
 private:
-	typedef std::set<std::unique_ptr<EDGE>> EDGESET;
+	typedef std::set<std::unique_ptr<DijkstraEdge>> EDGESET;
 
 private:
 	static unsigned int m_totalNode;
@@ -28,13 +27,13 @@ private:
 	float m_posY;
 
 	float m_totalCost;
-	std::list<GraphNode*> m_shortestPath;
+	std::list<DijkstraNode*> m_shortestPath;
 
 public:
 	unsigned int GetId()const { return m_id; }
-	void InsertEdge(GraphNode* toNode, float cost);
-	void InsertEdge(GraphNode* toNode);
-	bool DeleteEdge(GraphNode* toNode);
+	void InsertEdge(DijkstraNode* toNode, float cost);
+	void InsertEdge(DijkstraNode* toNode);
+	bool DeleteEdge(DijkstraNode* toNode);
 	void DeleteAll();
 	EDGESET* GetEdges() { return &m_edges; }
 	void Clear();
@@ -49,7 +48,7 @@ public:
 	float GetPosX()const { return m_posX; }
 	float GetPosY()const { return m_posY; }
 
-	std::list<GraphNode*>& GetShortestPath() { return m_shortestPath; }
+	std::list<DijkstraNode*>& GetShortestPath() { return m_shortestPath; }
 
 	static void ZeroNode() { m_totalNode = 0; }
 };

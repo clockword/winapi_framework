@@ -1,8 +1,7 @@
 #include <ctime>
 
 #include "DijkstraPath.h"
-#include "GraphNode.h"
-#include "AISettings.h"
+#include "DijkstraNode.h"
 
 #include "Vector2.h"
 
@@ -29,13 +28,13 @@ void DijkstraPath::Draw(Graphics* g)
 	Pen pathPen(Color(255, 0, 255));
 	pathPen.SetWidth(5);
 
-	std::set<std::unique_ptr<EDGE>>::iterator it;
-	std::set<std::unique_ptr<EDGE>>::iterator end;
+	std::set<std::unique_ptr<DijkstraEdge>>::iterator it;
+	std::set<std::unique_ptr<DijkstraEdge>>::iterator end;
 
 	auto nodes = m_dijkstraGraph.GetNodes();
 	for (auto &pair : *nodes)
 	{
-		GraphNode* node = pair.second.get();
+		DijkstraNode* node = pair.second.get();
 		const unsigned int id = node->GetId();
 
 		std::string _font = "Comic Sans MS";
@@ -70,7 +69,7 @@ void DijkstraPath::Draw(Graphics* g)
 
 		g->DrawEllipse(&nodePen, Rect(node->GetPosX() - 8, node->GetPosY() - 8, 16, 16));
 
-		GraphNode* lastNode = nullptr;
+		DijkstraNode* lastNode = nullptr;
 		for (auto path : m_shortest)
 		{
 			if (lastNode == nullptr)
@@ -86,12 +85,12 @@ void DijkstraPath::Draw(Graphics* g)
 
 		if (m_beginSet)
 		{
-			const GraphNode* piece = nodes->at(m_beginID).get();
+			const DijkstraNode* piece = nodes->at(m_beginID).get();
 			g->DrawEllipse(&beginPen, Rect(piece->GetPosX() - 10, piece->GetPosY() - 10, 20, 20));
 		}
 		if (m_endSet)
 		{
-			const GraphNode* piece = nodes->at(m_endID).get();
+			const DijkstraNode* piece = nodes->at(m_endID).get();
 			g->DrawEllipse(&endPen, Rect(piece->GetPosX() - 10, piece->GetPosY() - 10, 20, 20));
 		}
 	}

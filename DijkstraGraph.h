@@ -4,7 +4,7 @@
 #include <stack>
 #include <memory>
 
-class GraphNode;
+class DijkstraNode;
 class DijkstraGraph
 {
 public:
@@ -13,7 +13,7 @@ public:
 	~DijkstraGraph();
 
 private:
-	typedef std::map<unsigned int, std::shared_ptr<GraphNode>> NODEMAP;
+	typedef std::map<unsigned int, std::shared_ptr<DijkstraNode>> NODEMAP;
 
 private:
 	NODEMAP m_nodes;
@@ -25,10 +25,10 @@ public:
 	/*Return node's id*/
 	unsigned int InsertNode(float x, float y);
 
-	std::list<GraphNode*>& Calculate(GraphNode* from, GraphNode* to);
-	std::list<GraphNode*>& Calculate(unsigned int from, unsigned int to);
+	std::list<DijkstraNode*>& Calculate(DijkstraNode* from, DijkstraNode* to);
+	std::list<DijkstraNode*>& Calculate(unsigned int from, unsigned int to);
 
-	GraphNode* GetNode(unsigned int id);
+	DijkstraNode* GetNode(unsigned int id);
 	NODEMAP* GetNodes() { return &m_nodes; }
 
 	bool DeleteEdge(unsigned int from, unsigned to);

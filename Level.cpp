@@ -7,7 +7,7 @@
 #include "CollObject.h"
 #include "DijkstraPath.h"
 
-#include "GraphNode.h"
+#include "DijkstraNode.h"
 
 #include <iostream>
 
@@ -405,8 +405,8 @@ void Level::ButtonProcess(void* ctx, int index)
 		unsigned int from = std::stoul(from_textbox->GetText());
 		unsigned int to = std::stoul(to_textbox->GetText());
 
-		GraphNode* fromNode = graph->GetNode(from);
-		GraphNode* toNode = graph->GetNode(to);
+		DijkstraNode* fromNode = graph->GetNode(from);
+		DijkstraNode* toNode = graph->GetNode(to);
 
 		if (fromNode && toNode)
 		{
@@ -430,8 +430,8 @@ void Level::ButtonProcess(void* ctx, int index)
 		unsigned int from = std::stoul(from_textbox->GetText());
 		unsigned int to = std::stoul(to_textbox->GetText());
 
-		GraphNode* fromNode = graph->GetNode(from);
-		GraphNode* toNode = graph->GetNode(to);
+		DijkstraNode* fromNode = graph->GetNode(from);
+		DijkstraNode* toNode = graph->GetNode(to);
 
 		if (fromNode && toNode)
 		{

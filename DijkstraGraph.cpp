@@ -2,7 +2,7 @@
 #include <limits>
 #include <iterator>
 #include "DijkstraGraph.h"
-#include "GraphNode.h"
+#include "DijkstraNode.h"
 
 DijkstraGraph::DijkstraGraph() : m_goalID(0)
 {
@@ -14,18 +14,18 @@ DijkstraGraph::DijkstraGraph(const DijkstraGraph& other)
 
 DijkstraGraph::~DijkstraGraph()
 {
-	GraphNode::ZeroNode();
+	DijkstraNode::ZeroNode();
 }
 
 unsigned int DijkstraGraph::InsertNode(float x, float y)
 {
-	auto node = std::make_shared<GraphNode>(x, y);
+	auto node = std::make_shared<DijkstraNode>(x, y);
 	unsigned int id = node->GetId();
 	m_nodes.insert({ id, node });
 	return id;
 }
 
-std::list<GraphNode*>& DijkstraGraph::Calculate(GraphNode* from, GraphNode* to)
+std::list<DijkstraNode*>& DijkstraGraph::Calculate(DijkstraNode* from, DijkstraNode* to)
 {
 	m_goalID = to->GetId();
 
@@ -42,12 +42,12 @@ std::list<GraphNode*>& DijkstraGraph::Calculate(GraphNode* from, GraphNode* to)
 	return to->GetShortestPath();
 }
 
-std::list<GraphNode*>& DijkstraGraph::Calculate(unsigned int from, unsigned int to)
+std::list<DijkstraNode*>& DijkstraGraph::Calculate(unsigned int from, unsigned int to)
 {
 	return Calculate(m_nodes[from].get(), m_nodes[to].get());
 }
 
-GraphNode* DijkstraGraph::GetNode(unsigned int id)
+DijkstraNode* DijkstraGraph::GetNode(unsigned int id)
 {
 	if (m_nodes.find(id) == m_nodes.end())
 		return nullptr;
@@ -69,7 +69,7 @@ bool DijkstraGraph::DeleteNode(unsigned int id)
 	if (m_nodes.find(id) == m_nodes.end())
 		return false;
 
-	GraphNode* delNode = m_nodes[id].get();
+	DijkstraNode* delNode = m_nodes[id].get();
 
 	delNode->DeleteAll();
 	for (auto &node : m_nodes)

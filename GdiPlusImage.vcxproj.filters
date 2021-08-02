@@ -68,10 +68,16 @@
     <ClCompile Include="DijkstraPath.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="GraphNode.cpp">
+    <ClCompile Include="DijkstraNode.cpp">
       <Filter>AI</Filter>
     </ClCompile>
     <ClCompile Include="DijkstraGraph.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="AStarGraph.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="AStarNode.cpp">
       <Filter>AI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -128,13 +134,19 @@
     <ClInclude Include="DijkstraPath.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="GraphNode.h">
+    <ClInclude Include="DijkstraNode.h">
       <Filter>AI</Filter>
     </ClInclude>
-    <ClInclude Include="AISettings.h">
+    <ClInclude Include="DijkstraEdge.h">
       <Filter>AI</Filter>
     </ClInclude>
     <ClInclude Include="DijkstraGraph.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="AStarGraph.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="AStarNode.h">
       <Filter>AI</Filter>
     </ClInclude>
   </ItemGroup>

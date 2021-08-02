@@ -15,7 +15,7 @@ private:
 	bool m_beginSet;
 	bool m_endSet;
 
-	std::list<GraphNode*> m_shortest;
+	std::list<DijkstraNode*> m_shortest;
 
 public:
 	virtual void LoadExtra()override;

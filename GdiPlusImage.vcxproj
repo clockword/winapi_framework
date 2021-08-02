@@ -97,6 +97,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AStarGraph.cpp" />
+    <ClCompile Include="AStarNode.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CircleQueue.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -104,7 +106,7 @@
     <ClCompile Include="DijkstraGraph.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GraphNode.cpp" />
+    <ClCompile Include="DijkstraNode.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
@@ -117,7 +119,9 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AISettings.h" />
+    <ClInclude Include="AStarNode.h" />
+    <ClInclude Include="DijkstraEdge.h" />
+    <ClInclude Include="AStarGraph.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CircleQueue.h" />
     <ClInclude Include="Collider.h" />
@@ -125,7 +129,7 @@
     <ClInclude Include="DijkstraGraph.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GraphNode.h" />
+    <ClInclude Include="DijkstraNode.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Lambda.h" />
     <ClInclude Include="Level.h" />

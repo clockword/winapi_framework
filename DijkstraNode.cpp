@@ -1,17 +1,16 @@
 #include <limits>
 #include <Windows.h>
 
-#include "GraphNode.h"
-#include "AISettings.h"
+#include "DijkstraNode.h"
 
-unsigned int GraphNode::m_totalNode = 0;
+unsigned int DijkstraNode::m_totalNode = 0;
 
-void GraphNode::InsertEdge(GraphNode* toNode, float cost)
+void DijkstraNode::InsertEdge(DijkstraNode* toNode, float cost)
 {
-	m_edges.insert(std::make_unique<EDGE>(this, toNode, cost));
+	m_edges.insert(std::make_unique<DijkstraEdge>(this, toNode, cost));
 }
 
-void GraphNode::InsertEdge(GraphNode* toNode)
+void DijkstraNode::InsertEdge(DijkstraNode* toNode)
 {
 	float cost = sqrtf(powf(m_posX - toNode->m_posX, 2) + powf(m_posY - toNode->m_posY, 2));
 	EDGESET::iterator it = m_edges.begin();
@@ -24,10 +23,10 @@ void GraphNode::InsertEdge(GraphNode* toNode)
 			break;
 		}
 	}
-	if(insertable) m_edges.insert(std::make_unique<EDGE>(this, toNode, cost));
+	if(insertable) m_edges.insert(std::make_unique<DijkstraEdge>(this, toNode, cost));
 }
 
-bool GraphNode::DeleteEdge(GraphNode* toNode)
+bool DijkstraNode::DeleteEdge(DijkstraNode* toNode)
 {
 	EDGESET::iterator it = m_edges.begin();
 	for (; it != m_edges.end(); it++)
@@ -41,29 +40,29 @@ bool GraphNode::DeleteEdge(GraphNode* toNode)
 	return false;
 }
 
-void GraphNode::DeleteAll()
+void DijkstraNode::DeleteAll()
 {
 	m_edges.clear();
 }
 
-void GraphNode::ResetCost()
+void DijkstraNode::ResetCost()
 {
 	m_totalCost = std::numeric_limits<float>::infinity();
 	m_shortestPath.clear();
 }
 
-void GraphNode::ZeroCost()
+void DijkstraNode::ZeroCost()
 {
 	m_totalCost = 0.0f;
 	m_shortestPath.push_back(this);
 }
 
-void GraphNode::CalculateEdges()
+void DijkstraNode::CalculateEdges()
 {
 	EDGESET::iterator it = m_edges.begin();
 	for (; it != m_edges.end(); it++)
 	{
-		GraphNode* next = (*it)->toNode;
+		DijkstraNode* next = (*it)->toNode;
 		const float cost = m_totalCost + (*it)->cost;
 		if (next->m_shortestPath.empty())
 		{
@@ -83,7 +82,7 @@ void GraphNode::CalculateEdges()
 	}
 }
 
-void GraphNode::Clear()
+void DijkstraNode::Clear()
 {
 	m_edges.clear();
 }

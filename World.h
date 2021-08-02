@@ -4,9 +4,6 @@
 #include <vector>
 #include <string>
 #include <Windows.h>
-#include <gdiplus.h>
-#pragma comment(lib, "gdiplus")
-using namespace Gdiplus;
 
 #include "CollObject.h"
 
