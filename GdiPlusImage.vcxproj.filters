@@ -77,9 +77,6 @@
     <ClCompile Include="AStarGraph.cpp">
       <Filter>AI</Filter>
     </ClCompile>
-    <ClCompile Include="AStarNode.cpp">
-      <Filter>AI</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h">
@@ -144,9 +141,6 @@
       <Filter>AI</Filter>
     </ClInclude>
     <ClInclude Include="AStarGraph.h">
-      <Filter>AI</Filter>
-    </ClInclude>
-    <ClInclude Include="AStarNode.h">
       <Filter>AI</Filter>
     </ClInclude>
   </ItemGroup>

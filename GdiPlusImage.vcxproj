@@ -98,7 +98,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AStarGraph.cpp" />
-    <ClCompile Include="AStarNode.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CircleQueue.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -119,7 +118,6 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AStarNode.h" />
     <ClInclude Include="DijkstraEdge.h" />
     <ClInclude Include="AStarGraph.h" />
     <ClInclude Include="Button.h" />

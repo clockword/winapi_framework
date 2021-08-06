@@ -1,35 +1,61 @@
 #pragma once
 #include <queue>
+#include <list>
 #include <memory>
+#include <vector>
+#include <set>
 
-class AStarNode;
 class AStarGraph
 {
 private:
+	struct AStarNode
+	{
+		typedef std::shared_ptr<AStarNode> NODEPTR;
+		int x, y, f, g, h;
+		std::list<NODEPTR> accessibleNodes;
+		NODEPTR parent;
+
+		bool operator<(const AStarNode& other)
+		{
+			return f < other.f;
+		}
+	};
+
+	typedef AStarNode::NODEPTR NODEPTR;
+
+	struct NODECMP
+	{
+		bool operator()(const NODEPTR& node1, const NODEPTR& node2)const
+		{
+			return node1->f < node2->f;
+		}
+	};
+
+	typedef std::vector<NODEPTR> NODEARR;
+	typedef std::vector<std::vector<NODEPTR>> NODEARR2;
+	typedef std::priority_queue<NODEPTR, NODEARR, NODECMP> NODEPQ;
+	typedef std::set<NODEPTR, NODECMP> NODESET;
+	typedef std::list<NODEPTR> NODELIST;
+
+public:
 	AStarGraph(){}
 	AStarGraph(const AStarGraph& other){}
 	~AStarGraph(){}
 
 private:
-	typedef std::shared_ptr<AStarNode> NODEPTR;
-	typedef std::vector<NODEPTR> NODEARR;
-	typedef std::vector<std::vector<NODEPTR>> NODEARR2;
-	typedef std::priority_queue<NODEPTR> NODEPQ;
-
-private:
 	NODEARR2 m_nodesArr;
 	NODEPQ m_nodesQ;
-	NODEPTR m_currentNode;
-	NODEPTR m_endNode;
+	NODESET m_closed;
 
 public:
 	void Init(int row, int col);
-	void Calculate(NODEPTR start, NODEPTR end);
+	NODELIST& Calculate(const NODEPTR& start, const NODEPTR& end);
+	NODELIST& Calculate(int bx, int by, int ex, int ey);
 
 private:
-	int G(NODEPTR node);
-	int H(NODEPTR node);
+	int G(const NODEPTR& node, const NODEPTR& current)const;
+	int H(const NODEPTR& node, const NODEPTR& end)const;
+	bool Compare(const NODEPTR& node1, const NODEPTR& node2)const;
 
-	
 };
 
