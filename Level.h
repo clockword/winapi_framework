@@ -43,6 +43,7 @@ private:
 		DIJKSTRA_BEGIN,
 		DIJKSTRA_END,
 		DIJKSTRA_CALCULATE,
+		ASTAR_SCENE,
 	};
 
 	std::shared_ptr<void> m_variables;

@@ -39,6 +39,7 @@ void Level::Init()
 	if (m_name == "lvl_title")
 	{
 		auto dijkstra_button = static_cast<Button*>(m_obj[1]);
+		auto astar_button = static_cast<Button*>(m_obj[2]);
 
 		std::string font = "Comic Sans MS";
 
@@ -46,6 +47,11 @@ void Level::Init()
 		dijkstra_button->SetText("Dijkstra");
 		dijkstra_button->SetSize(1.5f, 1.0f);
 		dijkstra_button->RegisterButtonFunc(Level::ButtonProcess, this, static_cast<int>(ButtonWork::DIJKSTRA_SCENE));
+
+		astar_button->SetFont(font);
+		astar_button->SetText("A*");
+		astar_button->SetSize(1.0f, 1.0f);
+		astar_button->RegisterButtonFunc(Level::ButtonProcess, this, static_cast<int>(ButtonWork::ASTAR_SCENE));
 	}
 	else if (m_name == "lvl_dijkstra")
 	{
@@ -492,6 +498,11 @@ void Level::ButtonProcess(void* ctx, int index)
 
 		const DWORD time = dijkstra_path->Calculate();
 
+	}break;
+	case ButtonWork::ASTAR_SCENE:
+	{
+		game->ChangeLevel("lvl_astar");
+		InputManager::GetInstance()->ShockOff();
 	}break;
 	}
 }

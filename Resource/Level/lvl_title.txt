@@ -1,2 +1,3 @@
-1 default bt_button 512 384
+1 default bt_button 200 100
+2 default bt_button 450 100
 0 0 End 0 0 0

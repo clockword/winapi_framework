@@ -183,6 +183,7 @@ void Game::Init()
 
 	AddLevel("lvl_title");
 	AddLevel("lvl_dijkstra");
+	AddLevel("lvl_astar");
 
 	ChangeLevel("lvl_title");
 }
