@@ -1,7 +1,6 @@
 #pragma once
 #include <queue>
 #include <list>
-#include <memory>
 #include <vector>
 #include <set>
 
@@ -10,58 +9,59 @@ class AStarGraph
 public:
 	struct AStarNode
 	{
-		typedef std::shared_ptr<AStarNode> NODEPTR;
 		int x, y, f, g, h;
-		bool isClosed;
-		std::list<NODEPTR> accessibleNodes;
-		NODEPTR parent;
+		bool isClosed, isBlocked;
+		std::list<AStarNode*> accessibleNodes;
+		AStarNode* parent;
 
-		bool operator<(const AStarNode& other)
-		{
-			return f < other.f;
-		}
+		AStarNode() = delete;
+		AStarNode(int x, int y);
+		AStarNode(const AStarNode& other);
+		~AStarNode() = default;
+
+		bool operator<(const AStarNode& other)const;
 	};
-
-public:
-	typedef AStarNode::NODEPTR NODEPTR;
 
 private:
 	struct NODECMP
 	{
-		bool operator()(const NODEPTR& node1, const NODEPTR& node2)const
-		{
-			return node1->f > node2->f;
-		}
+		bool operator()(const AStarNode* node1, const AStarNode* node2)const;
 	};
 
-	typedef std::vector<NODEPTR> NODEARR;
+	typedef std::vector<AStarNode*> NODEARR;
 	typedef std::vector<NODEARR> NODEARR2;
-	typedef std::priority_queue<NODEPTR, NODEARR, NODECMP> NODEPQ;
+	typedef std::priority_queue<AStarNode*, NODEARR, NODECMP> NODEPQ;
 
 public:
-	typedef std::list<NODEPTR> NODELIST;
+	typedef std::list<AStarNode*> NODELIST;
 
 public:
-	AStarGraph(){}
-	AStarGraph(const AStarGraph& other){}
-	~AStarGraph(){}
+	AStarGraph();
+	AStarGraph(const AStarGraph& other);
+	~AStarGraph();
 
 private:
+	int m_maxRow;
+	int m_maxCol;
 	NODEARR2 m_nodesArr;
-	NODEPQ m_nodesQ;
+	NODELIST m_shortestPath;
 
 public:
-	void Init(int row, int col);
-	NODELIST& Calculate(const NODEPTR& start, const NODEPTR& end);
+	void InitNew(int row, int col);
+	bool BlockNode(int x, int y);
+
+	NODELIST& Calculate(AStarNode* const start, AStarNode* const end);
 	NODELIST& Calculate(int bx, int by, int ex, int ey);
 
 private:
-	int G(const NODEPTR& node, const NODEPTR& current)const;
-	int H(const NODEPTR& node, const NODEPTR& end)const;
-	bool Compare(const NODEPTR& node1, const NODEPTR& node2)const;
+	int G(const AStarNode* node, const AStarNode* current)const;
+	int H(const AStarNode* node, const AStarNode* end)const;
+	bool Compare(const AStarNode* node1, const AStarNode* node2)const;
+
+	void Clear();
+	void Release();
 
 };
 
 typedef AStarGraph::AStarNode AStarNode;
-typedef AStarGraph::NODEPTR AStarNodePtr;
-typedef AStarGraph::NODELIST AStarNodeList;
+typedef AStarGraph::NODELIST ASTARNODELIST;

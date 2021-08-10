@@ -1,27 +1,75 @@
 #include "AStarGraph.h"
 
-void AStarGraph::Init(int row, int col)
+AStarGraph::AStarNode::AStarNode(int x, int y)
 {
+	isClosed = false;
+	isBlocked = false;
+	this->x = x;
+	this->y = y;
+	g = 0;
+	h = 0;
+	f = 0;
+	parent = nullptr;
+}
+
+AStarGraph::AStarNode::AStarNode(const AStarNode& other)
+{
+	isClosed = other.isClosed;
+	isBlocked = other.isBlocked;
+	x = other.x;
+	y = other.y;
+	g = other.g;
+	h = other.h;
+	f = other.f;
+	parent = other.parent;
+}
+
+bool AStarGraph::AStarNode::operator<(const AStarNode& other)const
+{
+	return f < other.f;
+}
+
+bool AStarGraph::NODECMP::operator()(const AStarNode* node1, const AStarNode* node2) const
+{
+	return node1->f > node2->f;
+}
+
+AStarGraph::AStarGraph()
+{
+	m_maxRow = 0;
+	m_maxCol = 0;
+}
+
+AStarGraph::AStarGraph(const AStarGraph& other)
+{
+	InitNew(other.m_maxRow, other.m_maxCol);
+}
+
+AStarGraph::~AStarGraph()
+{
+	Release();
+}
+
+void AStarGraph::InitNew(int row, int col)
+{
+	m_maxRow = row;
+	m_maxCol = col;
+
+	Release();
+
 	for (int x = 0; x < row; x++)
 	{
 		NODEARR temp;
 		for (int y = 0; y < col; y++)
 		{
-			const NODEPTR& node = std::make_shared<AStarNode>();
-			node->isClosed = false;
-			node->x = x;
-			node->y = y;
-			node->g = 0;
-			node->h = 0;
-			node->f = 0;
-			node->parent = nullptr;
+			AStarNode* const node = new AStarNode(x, y);
 			temp.push_back(node);
 		}
 		m_nodesArr.push_back(temp);
 	}
 	for (const NODEARR& arr : m_nodesArr)
 	{
-		for (const NODEPTR& node : arr)
+		for (AStarNode* const node : arr)
 		{
 			for (int i = -1; i <= 1; i++)
 			{
@@ -40,55 +88,96 @@ void AStarGraph::Init(int row, int col)
 	}
 }
 
-AStarGraph::NODELIST& AStarGraph::Calculate(const NODEPTR& start, const NODEPTR& end)
+bool AStarGraph::BlockNode(int x, int y)
 {
+	if (x < 0 || x >= m_maxRow || y < 0 || y > m_maxCol)
+	{
+		return false;
+	}
+	m_nodesArr[x][y]->isBlocked = true;
+
+	return true;
+}
+
+AStarGraph::NODELIST& AStarGraph::Calculate(AStarNode* const start, AStarNode* const end)
+{
+	if (start->isBlocked ||
+		end->isBlocked ||
+		Compare(start, end))
+	{
+		m_shortestPath.clear();
+		return m_shortestPath;
+	}
+	Clear();
+
+	NODEPQ nodesQ;
+
 	start->h = H(start, end);
 	start->f = start->h;
-	start->isClosed = true;
-	start->parent = nullptr;
-	end->parent = nullptr;
-	m_nodesQ.push(start);
+	nodesQ.push(start);
 
-	while (!m_nodesQ.empty())
+	while (!nodesQ.empty())
 	{
-		NODEPTR node = m_nodesQ.top();
+		AStarNode* const node = nodesQ.top();
 		bool isNodeEnd = false;
-		m_nodesQ.pop();
+		nodesQ.pop();
 
-		for (const NODEPTR& next : node->accessibleNodes)
+		node->isClosed = true;
+
+		for (AStarNode* const next : node->accessibleNodes)
 		{
-			if (next->isClosed) continue;
-			next->isClosed = true;
-			next->g = G(next, node);
-			next->h = H(next, end);
-			next->f = next->g + next->h;
-			next->parent = node;
+			if (next->isClosed || next->isBlocked) continue;
+			if (next->f > 0)
+			{
+				if (next->g > G(next, node))
+				{
+					next->g = G(next, node);
+					next->f = next->g + next->h;
+					next->parent = node;
+				}
+			}
+			else
+			{
+				next->g = G(next, node);
+				next->h = H(next, end);
+				next->f = next->g + next->h;
+				next->parent = node;
+
+				nodesQ.push(next);
+			}
+			
 			if (Compare(next, end))
 			{
 				isNodeEnd = true;
 				break;
 			}
-			m_nodesQ.push(next);
 		}
 		if (isNodeEnd) break;
 	}
 
-	NODELIST list;
-	NODEPTR it = end;
+	m_shortestPath.clear();
+	AStarNode* it = end;
 	while (it != nullptr)
 	{
-		list.push_front(it);
+		m_shortestPath.emplace_front(it);
 		it = it->parent;
 	}
-	return list;
+	return m_shortestPath;
 }
 
 AStarGraph::NODELIST& AStarGraph::Calculate(int bx, int by, int ex, int ey)
 {
+	if (bx < 0 || bx >= m_maxRow || by < 0 || by > m_maxCol ||
+		ex < 0 || ex >= m_maxRow || ey < 0 || ey > m_maxCol)
+	{
+		m_shortestPath.clear();
+		return m_shortestPath;
+	}
+
 	return Calculate(m_nodesArr[bx][by], m_nodesArr[ex][ey]);
 }
 
-int AStarGraph::G(const NODEPTR& node, const NODEPTR& current)const
+int AStarGraph::G(const AStarNode* node, const AStarNode* current)const
 {
 	int g = 0;
 	if ((current->x != node->x) && (current->y != node->y))
@@ -98,12 +187,40 @@ int AStarGraph::G(const NODEPTR& node, const NODEPTR& current)const
 	return node->g + g;
 }
 
-int AStarGraph::H(const NODEPTR& node, const NODEPTR& end)const
+int AStarGraph::H(const AStarNode* node, const AStarNode* end)const
 {
-	return (abs(end->x - node->y) + abs(end->x - node->y)) * 10;
+	return (abs(end->x - node->x) + abs(end->y - node->y)) * 10;
 }
 
-bool AStarGraph::Compare(const NODEPTR& node1, const NODEPTR& node2)const
+bool AStarGraph::Compare(const AStarNode* node1, const AStarNode* node2)const
 {
 	return (node1->x == node2->x) && (node1->y == node2->y);
+}
+
+void AStarGraph::Clear()
+{
+	for (const NODEARR& arr : m_nodesArr)
+	{
+		for (AStarNode* const node : arr)
+		{
+			node->isClosed = false;
+			node->g = 0;
+			node->h = 0;
+			node->f = 0;
+			node->parent = nullptr;
+		}
+	}
+}
+
+void AStarGraph::Release()
+{
+	for (NODEARR& const arr : m_nodesArr)
+	{
+		for (const AStarNode* node : arr)
+		{
+			delete node;
+		}
+		arr.clear();
+	}
+	m_nodesArr.clear();
 }
