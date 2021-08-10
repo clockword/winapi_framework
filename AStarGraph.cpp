@@ -8,6 +8,7 @@ void AStarGraph::Init(int row, int col)
 		for (int y = 0; y < col; y++)
 		{
 			const NODEPTR& node = std::make_shared<AStarNode>();
+			node->isClosed = false;
 			node->x = x;
 			node->y = y;
 			node->g = 0;
@@ -43,6 +44,7 @@ AStarGraph::NODELIST& AStarGraph::Calculate(const NODEPTR& start, const NODEPTR&
 {
 	start->h = H(start, end);
 	start->f = start->h;
+	start->isClosed = true;
 	start->parent = nullptr;
 	end->parent = nullptr;
 	m_nodesQ.push(start);
@@ -50,23 +52,25 @@ AStarGraph::NODELIST& AStarGraph::Calculate(const NODEPTR& start, const NODEPTR&
 	while (!m_nodesQ.empty())
 	{
 		NODEPTR node = m_nodesQ.top();
-		if (Compare(node, end)) break;
-
+		bool isNodeEnd = false;
 		m_nodesQ.pop();
 
 		for (const NODEPTR& next : node->accessibleNodes)
 		{
-			if (m_closed.find(next) != m_closed.end())
-				continue;
-			m_closed.insert(next);
+			if (next->isClosed) continue;
+			next->isClosed = true;
 			next->g = G(next, node);
 			next->h = H(next, end);
 			next->f = next->g + next->h;
 			next->parent = node;
-			if (Compare(node, end))
+			if (Compare(next, end))
+			{
+				isNodeEnd = true;
 				break;
+			}
 			m_nodesQ.push(next);
 		}
+		if (isNodeEnd) break;
 	}
 
 	NODELIST list;

@@ -7,11 +7,12 @@
 
 class AStarGraph
 {
-private:
+public:
 	struct AStarNode
 	{
 		typedef std::shared_ptr<AStarNode> NODEPTR;
 		int x, y, f, g, h;
+		bool isClosed;
 		std::list<NODEPTR> accessibleNodes;
 		NODEPTR parent;
 
@@ -21,20 +22,23 @@ private:
 		}
 	};
 
+public:
 	typedef AStarNode::NODEPTR NODEPTR;
 
+private:
 	struct NODECMP
 	{
 		bool operator()(const NODEPTR& node1, const NODEPTR& node2)const
 		{
-			return node1->f < node2->f;
+			return node1->f > node2->f;
 		}
 	};
 
 	typedef std::vector<NODEPTR> NODEARR;
-	typedef std::vector<std::vector<NODEPTR>> NODEARR2;
+	typedef std::vector<NODEARR> NODEARR2;
 	typedef std::priority_queue<NODEPTR, NODEARR, NODECMP> NODEPQ;
-	typedef std::set<NODEPTR, NODECMP> NODESET;
+
+public:
 	typedef std::list<NODEPTR> NODELIST;
 
 public:
@@ -45,7 +49,6 @@ public:
 private:
 	NODEARR2 m_nodesArr;
 	NODEPQ m_nodesQ;
-	NODESET m_closed;
 
 public:
 	void Init(int row, int col);
@@ -59,3 +62,6 @@ private:
 
 };
 
+typedef AStarGraph::AStarNode AStarNode;
+typedef AStarGraph::NODEPTR AStarNodePtr;
+typedef AStarGraph::NODELIST AStarNodeList;
