@@ -20,6 +20,9 @@
     <Filter Include="AI">
       <UniqueIdentifier>{62933afe-e2c7-4c29-80ac-6456b17e9e30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Configuration\Overrided Levels">
+      <UniqueIdentifier>{853fb17d-18fe-482b-a3ec-c6fcde267060}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp">
@@ -40,7 +43,7 @@
     <ClCompile Include="Game.cpp">
       <Filter>Configuration</Filter>
     </ClCompile>
-    <ClCompile Include="Level.cpp">
+    <ClCompile Include="oLevel.cpp">
       <Filter>Configuration</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
@@ -77,6 +80,9 @@
     <ClCompile Include="AStarGraph.cpp">
       <Filter>AI</Filter>
     </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Configuration</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h">
@@ -97,7 +103,7 @@
     <ClInclude Include="Game.h">
       <Filter>Configuration</Filter>
     </ClInclude>
-    <ClInclude Include="Level.h">
+    <ClInclude Include="oLevel.h">
       <Filter>Configuration</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
@@ -142,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="AStarGraph.h">
       <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Configuration</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

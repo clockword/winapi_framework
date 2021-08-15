@@ -3,7 +3,7 @@
 #include <map>
 #include <memory>
 
-#include "Level.h"
+#include "oLevel.h"
 #include "World.h"
 #include "Text.h"
 
@@ -11,7 +11,7 @@
 
 #define USERINFO Game::UserInfo
 
-class Level;
+class oLevel;
 class Game
 {
 public:
@@ -28,9 +28,9 @@ private:
 	SOCKET m_socketTCP;
 	std::string m_ip;
 
-	typedef std::map<std::string, Level*> Levels;
+	typedef std::map<std::string, oLevel*> Levels;
 	Levels m_levels;
-	Level* m_currentLevel;
+	oLevel* m_currentLevel;
 
 	DWORD m_fixedFrame;
 	DWORD m_fixedCount;
@@ -54,7 +54,7 @@ public:
 	Game();
 	virtual ~Game();
 
-	Level* GetCurrentLevel() { return m_currentLevel; }
+	oLevel* GetCurrentLevel() { return m_currentLevel; }
 	void ChangeLevel(std::string name);
 	HWND GetWindow() { return m_hwnd; }
 

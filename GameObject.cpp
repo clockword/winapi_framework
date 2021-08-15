@@ -1,5 +1,5 @@
 #include "GameObject.h"
-#include "Level.h"
+#include "oLevel.h"
 
 GameObject::GameObject()
 {
@@ -183,7 +183,7 @@ void GameObject::Draw(Graphics * g)
 	ImageAttributes attributes;
 	attributes.SetColorMatrix(&m_imageColor);
 
-	Level* level = static_cast<Level*>(m_vpLevel);
+	oLevel* level = static_cast<oLevel*>(m_vpLevel);
 	
 	g->TranslateTransform((float)m_x, (float)m_y);
 

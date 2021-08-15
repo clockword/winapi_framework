@@ -108,6 +108,7 @@
     <ClCompile Include="DijkstraNode.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="oLevel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="DijkstraPath.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -131,6 +132,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Lambda.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="oLevel.h" />
     <ClInclude Include="packet.h" />
     <ClInclude Include="DijkstraPath.h" />
     <ClInclude Include="resource.h" />

@@ -9,7 +9,7 @@ void Game::AddLevel(std::string name)
 {
 	if (m_levels.find(name) == m_levels.end())
 	{
-		m_levels[name] = new Level(name);
+		m_levels[name] = new oLevel(name);
 		m_levels[name]->SetThisGame(this);
 	}
 }
