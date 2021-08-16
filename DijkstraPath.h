@@ -18,7 +18,6 @@ private:
 	std::list<DijkstraNode*> m_shortest;
 
 public:
-	virtual void LoadExtra()override;
 	virtual void Init()override;
 	virtual void Draw(Graphics* g)override;
 

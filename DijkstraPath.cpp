@@ -5,10 +5,6 @@
 
 #include "Vector2.h"
 
-void DijkstraPath::LoadExtra()
-{
-}
-
 void DijkstraPath::Init()
 {
 	m_beginSet = false;

@@ -89,6 +89,9 @@
     <ClCompile Include="lvlAstar.cpp">
       <Filter>Configuration\Overrided Levels</Filter>
     </ClCompile>
+    <ClCompile Include="AStarPath.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h">
@@ -163,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="lvlAstar.h">
       <Filter>Configuration\Overrided Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="AStarPath.h">
+      <Filter>GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
