@@ -43,9 +43,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>Configuration</Filter>
     </ClCompile>
-    <ClCompile Include="oLevel.cpp">
-      <Filter>Configuration</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="InputManager.cpp">
       <Filter>Manager</Filter>
@@ -83,6 +80,15 @@
     <ClCompile Include="Level.cpp">
       <Filter>Configuration</Filter>
     </ClCompile>
+    <ClCompile Include="lvlTitle.cpp">
+      <Filter>Configuration\Overrided Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="lvlDijkstra.cpp">
+      <Filter>Configuration\Overrided Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="lvlAstar.cpp">
+      <Filter>Configuration\Overrided Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h">
@@ -101,9 +107,6 @@
       <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Configuration</Filter>
-    </ClInclude>
-    <ClInclude Include="oLevel.h">
       <Filter>Configuration</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
@@ -151,6 +154,15 @@
     </ClInclude>
     <ClInclude Include="Level.h">
       <Filter>Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="lvlTitle.h">
+      <Filter>Configuration\Overrided Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="lvlDijkstra.h">
+      <Filter>Configuration\Overrided Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="lvlAstar.h">
+      <Filter>Configuration\Overrided Levels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

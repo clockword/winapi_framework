@@ -2,16 +2,19 @@
 #include <string>
 #include <map>
 #include <memory>
+#include <cstdio>
 
-#include "oLevel.h"
-#include "World.h"
-#include "Text.h"
+#include <WinSock2.h>  
+#include <Windows.h>
+#include <gdiplus.h>
+#pragma comment(lib, "gdiplus")
+using namespace Gdiplus;
 
 #include "packet.h"
 
 #define USERINFO Game::UserInfo
 
-class oLevel;
+class Level;
 class Game
 {
 public:
@@ -24,13 +27,15 @@ public:
 		_userInfo() : id(0), charNumber(-1) {}
 	}UserInfo;
 
+	typedef std::shared_ptr<Level> LVLPTR;
+	typedef std::map<std::string, LVLPTR> LVLMAP;
+
 private:
 	SOCKET m_socketTCP;
 	std::string m_ip;
 
-	typedef std::map<std::string, oLevel*> Levels;
-	Levels m_levels;
-	oLevel* m_currentLevel;
+	LVLMAP m_levels;
+	LVLPTR m_currentLevel;
 
 	DWORD m_fixedFrame;
 	DWORD m_fixedCount;
@@ -46,7 +51,7 @@ private:
 	u_int m_msgSock;
 
 private:
-	void AddLevel(std::string name);
+	void AddLevel(LVLPTR level);
 	
 	void err_quit(char* msg);
 
@@ -54,7 +59,6 @@ public:
 	Game();
 	virtual ~Game();
 
-	oLevel* GetCurrentLevel() { return m_currentLevel; }
 	void ChangeLevel(std::string name);
 	HWND GetWindow() { return m_hwnd; }
 

@@ -1,3 +1,9 @@
+#include <Windows.h>
+#include <gdiplus.h>
+#pragma comment(lib, "gdiplus")
+using namespace Gdiplus;
+#include "Level.h"
+
 #include "Button.h"
 #include "InputManager.h"
 
@@ -60,8 +66,8 @@ void Button::OnMouseButtonUp(int x, int y)
 	{
 		if (GetButtonClicked())
 		{
-			if (OnButton != nullptr || m_ctx != nullptr)
-				OnButton(m_ctx, m_index);
+			if (OnButtonDown != nullptr)
+				OnButtonDown();
 		}
 	}
 }
@@ -70,4 +76,9 @@ void Button::Update(Graphics* g, DWORD tick)
 {
 	MouseWork();
 	GameObject::Update(g, tick);
+}
+
+void Button::RegisterButton(Level* level, int index)
+{
+	OnButtonDown = std::bind(&Level::ButtonProcess, level, index);
 }

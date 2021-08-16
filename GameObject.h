@@ -7,7 +7,7 @@
 #pragma comment(lib, "gdiplus")
 using namespace Gdiplus;
 
-class oLevel;
+class Level;
 class GameObject
 {
 private:
@@ -21,7 +21,7 @@ private:
 	DWORD*m_aniInterval;
 	DWORD*m_aniIntervalMax;
 
-	oLevel* m_vpLevel;
+	Level* m_vpLevel;
 
 	int m_x;
 	int m_y;
@@ -76,7 +76,7 @@ public:
 	void SetName(std::string name) { m_name = name; }
 	std::string GetName() { return m_name; }
 	void SetColor(float r, float g, float b, float a);
-	void SetLevel(oLevel* level) { m_vpLevel = level; }
+	void SetLevel(Level* level) { m_vpLevel = level; }
 	void* GetLevel() { return m_vpLevel; }
 	void SetAniKind(DWORD kind) { m_aniKind = kind; m_aniTimeCount = 0; }
 	DWORD GetAniKind() { return m_aniKind; }

@@ -1,16 +1,26 @@
 #define _CRT_SECURE_NO_WARNINGS
+
 #include "Game.h"
+
 #include <iostream>
 #include <set>
 
+#include "Level.h"
+
+#include "World.h"
 #include "ResourceManager.h"
 
-void Game::AddLevel(std::string name)
+#include "lvlTitle.h"
+#include "lvlDijkstra.h"
+#include "lvlAstar.h"
+
+#define MAKELVL(name, type) std::make_shared<type>(this, name)
+
+void Game::AddLevel(LVLPTR level)
 {
-	if (m_levels.find(name) == m_levels.end())
+	if (m_levels.find(level->GetName()) == m_levels.end())
 	{
-		m_levels[name] = new oLevel(name);
-		m_levels[name]->SetThisGame(this);
+		m_levels.insert({ level->GetName(), level });
 	}
 }
 
@@ -43,11 +53,6 @@ Game::Game()
 
 Game::~Game()
 {
-	Levels::iterator it = m_levels.begin();
-	for (; it != m_levels.end(); it++)
-	{
-		delete it->second;
-	}
 	m_levels.clear();
 	m_currentLevel = nullptr;
 }
@@ -56,7 +61,7 @@ void Game::ChangeLevel(std::string name)
 {
 	if (m_currentLevel != nullptr)
 	{
-		m_currentLevel->UnLoad();
+		m_currentLevel->Unload();
 	}
 	m_currentLevel = m_levels[name];
 	m_currentLevel->Load();
@@ -96,7 +101,7 @@ void Game::Send(LPPACKETHEADER packet)
 
 void Game::Recieve(LPPACKETHEADER packet)
 {
-	m_currentLevel->RecievePacket(packet);
+	m_currentLevel->OnRecievePacket(packet);
 }
 
 bool Game::CheckUserID(std::string id)
@@ -181,9 +186,9 @@ void Game::Init()
 
 	m_fixedFrame = 15;
 
-	AddLevel("lvl_title");
-	AddLevel("lvl_dijkstra");
-	AddLevel("lvl_astar");
+	AddLevel(MAKELVL("lvl_title", lvlTitle));
+	AddLevel(MAKELVL("lvl_dijkstra", lvlDijkstra));
+	AddLevel(MAKELVL("lvl_astar", lvlAstar));
 
 	ChangeLevel("lvl_title");
 }
