@@ -9,7 +9,7 @@ void TextBox::MouseWork()
 
 	if (GetOriginalImageRect().Contains(Point(mouseX, mouseY)))
 	{
-		if (InputManager::GetInstance()->GetMouseClick())
+		if (InputManager::GetInstance()->GetLMouseClick())
 		{
 			SetButtonClicked(true);
 		}

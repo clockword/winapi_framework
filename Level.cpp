@@ -6,6 +6,7 @@
 #include "ResourceManager.h"
 #include "InputManager.h"
 #include "DijkstraPath.h"
+#include "AStarPath.h"
 #include "World.h"
 
 Level::Level(Game* game, std::string name) : m_game(game), m_name(name)
@@ -86,6 +87,10 @@ void Level::Load()
 		else if (type == "dp")
 		{
 			m_obj[key] = new DijkstraPath();
+		}
+		else if (type == "ap")
+		{
+			m_obj[key] = new AStarPath();
 		}
 
 		m_obj[key]->SetFile(img);

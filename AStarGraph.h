@@ -49,6 +49,8 @@ private:
 public:
 	void InitNew(int row, int col);
 	bool BlockNode(int x, int y);
+	bool OpenNode(int x, int y);
+	AStarNode* GetNode(int x, int y);
 
 	NODELIST& Calculate(AStarNode* const start, AStarNode* const end);
 	NODELIST& Calculate(int bx, int by, int ex, int ey);

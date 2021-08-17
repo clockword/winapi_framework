@@ -153,7 +153,7 @@ void lvlDijkstra::Update(Graphics* g, DWORD tick)
 	DijkstraPath* path = static_cast<DijkstraPath*>(m_obj[102]);
 	DijkstraGraph* graph = path->GetGraph();
 
-	if (input->GetMouseClick())
+	if (input->GetLMouseClick())
 	{
 		if (isClickable && editMode)
 		{

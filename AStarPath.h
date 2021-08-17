@@ -20,9 +20,6 @@ public:
 	virtual void Init()override;
 	virtual void Draw(Graphics* g)override;
 
-	void SetBegin(Point point);
-	void SetEnd(Point point);
-
 	Point GetBegin()const { return m_begin; }
 	Point GetEnd()const { return m_end; }
 
@@ -30,5 +27,7 @@ public:
 
 	AStarGraph* GetGraph() { return &m_astarGraph; }
 
+	void MoveEnd(int x, int y);
+	void MoveBegin(int x, int y);
 };
 

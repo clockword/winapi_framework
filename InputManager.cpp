@@ -8,7 +8,8 @@ InputManager::InputManager()
     m_yUp = 0;
     m_x = 0;
     m_y = 0;
-    m_mouseClicked = false;
+    m_lMouseClicked = false;
+    m_rMouseClicked = false;
     m_shockOff = false;
 }
 

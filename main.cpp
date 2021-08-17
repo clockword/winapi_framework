@@ -156,14 +156,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		int x = LOWORD(lParam);
 		int y = HIWORD(lParam);
 		InputManager::GetInstance()->SetMouseDownPos(x, y);
-		InputManager::GetInstance()->SetMouseClick(true);
+		InputManager::GetInstance()->SetLMouseClick(true);
 	}break;
 	case WM_LBUTTONUP:
 	{
 		int x = LOWORD(lParam);
 		int y = HIWORD(lParam);
 		InputManager::GetInstance()->SetMouseUpPos(x, y);
-		InputManager::GetInstance()->SetMouseClick(false);
+		InputManager::GetInstance()->SetLMouseClick(false);
+	}break;
+	case WM_RBUTTONDOWN:
+	{
+		int x = LOWORD(lParam);
+		int y = HIWORD(lParam);
+		InputManager::GetInstance()->SetMouseDownPos(x, y);
+		InputManager::GetInstance()->SetRMouseClick(true);
+	}break;
+	case WM_RBUTTONUP:
+	{
+		int x = LOWORD(lParam);
+		int y = HIWORD(lParam);
+		InputManager::GetInstance()->SetMouseUpPos(x, y);
+		InputManager::GetInstance()->SetRMouseClick(false);
 	}break;
 	case WM_CHAR:
 	{

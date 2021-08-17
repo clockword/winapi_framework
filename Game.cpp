@@ -182,8 +182,6 @@ void Game::UpdateSessions(DWORD tick)
 
 void Game::Init()
 {
-	srand((unsigned)time(NULL));
-
 	m_fixedFrame = 15;
 
 	AddLevel(MAKELVL("lvl_title", lvlTitle));

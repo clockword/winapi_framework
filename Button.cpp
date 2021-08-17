@@ -31,7 +31,7 @@ void Button::MouseWork()
 
 	if (GetOriginalImageRect().Contains(Point(mouseX, mouseY)))
 	{
-		if (InputManager::GetInstance()->GetMouseClick())
+		if (InputManager::GetInstance()->GetLMouseClick())
 		{
 			SetScale(SizeF(1.2f, 1.2f));
 			SetFontScale(1.2f);

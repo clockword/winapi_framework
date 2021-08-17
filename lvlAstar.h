@@ -10,7 +10,7 @@ class lvlAstar final : public Level
 private:
 	enum class ButtonWork
 	{
-		
+		TITLE,
 	};
 
 public:
@@ -23,6 +23,9 @@ public:
 
 	virtual void OnRecievePacket(void* packet) override;
 	virtual void ButtonProcess(int index) override;
+
+private:
+	void ExecuteInputs(DWORD tick);
 
 };
 

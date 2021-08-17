@@ -99,6 +99,22 @@ bool AStarGraph::BlockNode(int x, int y)
 	return true;
 }
 
+bool AStarGraph::OpenNode(int x, int y)
+{
+	if (x < 0 || x >= m_maxRow || y < 0 || y > m_maxCol)
+	{
+		return false;
+	}
+	m_nodesArr[x][y]->isBlocked = false;
+
+	return true;
+}
+
+AStarNode* AStarGraph::GetNode(int x, int y)
+{
+	return m_nodesArr[x][y];
+}
+
 AStarGraph::NODELIST& AStarGraph::Calculate(AStarNode* const start, AStarNode* const end)
 {
 	if (start->isBlocked ||
