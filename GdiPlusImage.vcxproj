@@ -121,6 +121,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="lvlAstar.cpp" />
     <ClCompile Include="lvlDijkstra.cpp" />
+    <ClCompile Include="lvlThread.cpp" />
     <ClCompile Include="lvlTitle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="DijkstraPath.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="lvlAstar.h" />
     <ClInclude Include="lvlDijkstra.h" />
+    <ClInclude Include="lvlThread.h" />
     <ClInclude Include="lvlTitle.h" />
     <ClInclude Include="packet.h" />
     <ClInclude Include="DijkstraPath.h" />

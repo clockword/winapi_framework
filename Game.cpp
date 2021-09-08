@@ -13,6 +13,7 @@
 #include "lvlTitle.h"
 #include "lvlDijkstra.h"
 #include "lvlAstar.h"
+#include "lvlThread.h"
 
 #define MAKELVL(name, type) std::make_shared<type>(this, name)
 
@@ -187,6 +188,7 @@ void Game::Init()
 	AddLevel(MAKELVL("lvl_title", lvlTitle));
 	AddLevel(MAKELVL("lvl_dijkstra", lvlDijkstra));
 	AddLevel(MAKELVL("lvl_astar", lvlAstar));
+	AddLevel(MAKELVL("lvl_thread", lvlThread));
 
 	ChangeLevel("lvl_title");
 }
