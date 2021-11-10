@@ -3,7 +3,7 @@
 #include "InputManager.h"
 #include "Button.h"
 
-lvlThread::lvlThread(Game* game, std::string name)
+lvlThread::lvlThread(Game* game, std::string name) : Level(game, name)
 {
 }
 

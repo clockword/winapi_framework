@@ -14,7 +14,7 @@ private:
 	};
 
 public:
-	lvlThread() = delete;
+	
 	lvlThread(Game* game, std::string name);
 	virtual ~lvlThread();
 
